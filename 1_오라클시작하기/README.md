@@ -1,5 +1,12 @@
 ## ▶ 1-1 오라클 시작하기
  
++ 오라클/개발도구 설치
+https://www.oracle.com/downloads/
+
++ CMD -> sqlplus
++ Developer Tool -> 컨트롤 엔터 :
+    + 마지막 세미콜론부터 현재 세미콜론까지 실행
+
 -----------------
 + ### 관리자 계정 : 
 
@@ -28,3 +35,28 @@ CREATE USER KH  IDENTIFIED BY KH;
 GRANT RESOURCE, CONNECT TO KH; 
 ```
 
+---------------------
+
+![table](url)
+
+```
+▶ 테이블에는 기본적으로 기본키의 역할을 하는 컬럼이 필요.
+```
+
++ 행(Row), 튜플
++ 컬럼, 도메인
++ 기본키(Primary Key)
+    + 각 행(튜플)을 구분할 수 있는 ID와 같은 역할
++ 외래키(Foreign Key)
+    + 다른 테이블의 기본키가 내안에 들어오는것
+    +  A    B
+
+```
+▶ SQL(Stuctured Query Language)
+```
+- DQL 데이터 검색 SELECT
+- DML 데이터 조작 INSERT,UPDATE,DELETE
+- DDL 데이터 정의 CREATE,DROP,ALTER
+- TCL 트랙잭션 제어 COMMIT, ROLLBACK
+    
+    (데이터 베이스 상태를 변경해주는것)

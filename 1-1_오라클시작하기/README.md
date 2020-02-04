@@ -16,7 +16,7 @@
 
 + ## 관리자 계정 만들기
 
-![admin](./img/admin.png)
+![admin](https://github.com/senspond20/Oracle/blob/master/1-1_오라클시작하기/admin.png)
 
 + ## 사용자 계정 만들기
 

@@ -23,8 +23,7 @@ https://www.oracle.com/downloads/
 
 + ## 관리자 계정 만들기
 
-![admin](https://github.com/senspond20/Oracle/blob/master/1-1_오라클시작하기/admin.png)
-
+![admin](https://user-images.githubusercontent.com/60596128/73768255-09ad5680-47bc-11ea-96a7-55cd73e88cde.png)
 + ## 사용자 계정 만들기
 
 ```sql

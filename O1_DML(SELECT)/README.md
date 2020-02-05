@@ -1,4 +1,9 @@
 # DML(SELECT)
+### SELECT 기본 구문
+### 컬럼 별칭 사용법
+### 리터럴
+
+-------------------------
 
 ```
 ▶ SELECT
@@ -78,7 +83,7 @@ SELECT EMP_NAME, SALARY * 12, (SALARY + (SALARY * BONUS)) * 12
 FROM EMPLOYEE;
 ```
 
-## 컬럼 별칭
+## 컬럼 별칭 사용법
 
 + 컬럼 명 AS 별칭
 + 컬럼 명 "별칭"
@@ -93,7 +98,7 @@ SELECT EMP_NAME 이름, SALARY * 12 "연봉(원)" , SALARY * (1+BONUS) * 12 AS "
 FROM EMPLOYEE;
 ```
 
-## 리터럴 
+## 리터럴
 
 + 임의로 정한 문자열을 SELECT 절에 사용하면 테이블에 존재하는 데이터처럼 사용 가능
 -- 문자나 날짜 리터널은 ' ' 기호 사용되며 모든 행에 반복 표시 됨

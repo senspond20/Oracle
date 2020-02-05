@@ -1,5 +1,5 @@
 # DML(SELECT)
-[SELECT 기본 구문](#SELECT 기본 구문)
+[SELECT 기본 구문](#SELECT-기본-구문)
 [컬럼 별칭 사용법](##컬럼 별칭 사용법)
 ### 리터럴
 

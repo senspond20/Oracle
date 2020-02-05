@@ -41,7 +41,8 @@ SELECT LENGTH(EMP_NAME), COUNT(EMP_NAME)
 FROM EMPLOYEE;
 ```
 
-# 단일행 함수
+# 단일행 함수(SINGLE ROW FUNCTION)
+[ BACK](#함수-function)
 
 ## 1. 문자 관련 함수
 
@@ -140,7 +141,7 @@ SELECT EMP_ID, EMP_NAME, SALARY,
      END) AS 등급
 FROM EMPLOYEE;
 
-# 그룹 함수 
+# 그룹 함수 (GROUP FUNCTION)
 -- 여러 행을 넣으면 한개의 결과 반환
 -- SUM (숫자가 기록된 컬럼) : 합계
 

@@ -1,6 +1,7 @@
 # 함수 (FUNCTION)
 
 -- 오라클에서 함수는 자바에서 메소드와 같은 애기다.
++ FUNCTION(매개변수)   : 리턴값
 
 -- 함수(FUNCTION) : 
 + 칼럼의 값을 읽어서 계산한 결과 리턴
@@ -39,4 +40,8 @@ FROM EMPLOYEE;
 -- 함수를 사용 할 수 있는 위치
 +  SELECT 절, WHERE절, GROUP BY절, HAVING 절, ORDER BY 절
 
-
+▶
+|-D--|DD-|
+|---|---|
+|-D--|-D-|
+|-D--|-D--|

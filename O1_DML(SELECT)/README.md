@@ -68,7 +68,8 @@ Result Set은 0개 이상의 행이 포함 될 수 있고 특정 기준에 의�
 
 -----------------
 
-## SELECT 기본 예시 [  BACK](#dmlselect)
+## SELECT 기본 예시
+[  BACK](#dmlselect)
 
 + 직원 전부의 사번과 이름, 월급을 조회하는 구문
 
@@ -89,7 +90,8 @@ SELECT EMP_NAME, SALARY * 12, (SALARY + (SALARY * BONUS)) * 12
 FROM EMPLOYEE;
 ```
 
-## 컬럼 별칭 사용법 [  BACK](#dmlselect)
+## 컬럼 별칭 사용법
+[  BACK](#dmlselect)
 
 + 컬럼 명 AS 별칭
 + 컬럼 명 "별칭"
@@ -104,7 +106,8 @@ SELECT EMP_NAME 이름, SALARY * 12 "연봉(원)" , SALARY * (1+BONUS) * 12 AS "
 FROM EMPLOYEE;
 ```
 
-## 리터럴 [  BACK](#dmlselect)
+## 리터럴
+[  BACK](#dmlselect)
 
 + 임의로 정한 문자열을 SELECT 절에 사용하면 테이블에 존재하는 데이터처럼 사용 가능
 -- 문자나 날짜 리터널은 ' ' 기호 사용되며 모든 행에 반복 표시 됨

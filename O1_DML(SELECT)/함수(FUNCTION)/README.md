@@ -15,6 +15,8 @@
 ▶  [그룹 함수(GROUP FUNCTION)](#그룹-함수-group-function)
 +   S개의 값을 넣어서 한개의 결과 리턴
 
+![funcIntro](https://user-images.githubusercontent.com/60596128/73858737-39239800-487c-11ea-8f42-14b1884c2be6.png)
+
 -- )) SELECT 절에 단일 행 함수랑 그룹 함수를 같이 써도 되는가?
 -- > 안된다. 왜?
 -- > 결과를 가져올떄 행의 수가 똑같아야하는데

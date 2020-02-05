@@ -1,12 +1,29 @@
 # 함수 (FUNCTION)
 
++ 함수 : Input에 대한 Output이 1:1로 매칭되는 성질. -> 매개변수가 같으면 리턴값(결과)이 같아야한다.
 + FUNCTION(매개변수)   : 리턴값
 
+  + 매개변수/리턴형
+    + DATE : 날짜형 데이터 
+    + NUMBER : 숫자형 데이터 
+    + CHARACTER : 문자형 데이터
+    + DATE : 날짜형 데이터
+    + FORMAT : 출력 형식 (변환형 함수에 쓰임)
+ 
+         형식 | 의미 | 형식 | 의미
+        ------|-------|-----|------
+         YYYYY|년도(4자리)|YY |년도(2자리)
+         MM | 월을 숫자로|MON|월을 문자로
+         DD | 일을 숫자로|DY|요일을 약어로
+         DAY| 요일   |L | 로컬 화폐표시
+         '0000'| 0123 |'9999' | 123
+  
+  
 + 칼럼의 값을 읽어서 계산한 결과 리턴
 
 + 오라클에서 함수는 자바에서 메소드와 같은 애기다.
 
-+ ##  [단일 행 함수 (SINGLE ROW FUNCTION)](#단일행-함수single-row-function)
++ ## [단일 행 함수 (SINGLE ROW FUNCTION)](#단일행-함수single-row-function)
        +  N개의 값을 넣어서 N개의 결과 리턴
 
 + ## [그룹 함수(GROUP FUNCTION)](#그룹-함수-group-function)
@@ -14,7 +31,7 @@
 
 --------------------------------------------
 
-## point 
+## < point >
 
 ▶  함수를 사용 할 수 있는 위치
 +  SELECT 절, WHERE절, GROUP BY절, HAVING 절, ORDER BY 절
@@ -57,8 +74,19 @@ FROM EMPLOYEE;
 ![func3](https://user-images.githubusercontent.com/60596128/73858700-2c9f3f80-487c-11ea-9e1e-1d51c6711470.png)
 
 ### 4. 형 변환 함수
--- TO_CHAR(날짜[, 포맷]) :  날짜형 데이터 -> 문자형 데이터
--- TO_CHAR(숫자[, 포맷]) :  숫자형 데이터 -> 문자형 데이터
+
+ + TO_CHAR(DATE[, FORMAT]) : CHARACTER  (날짜형 데이터 -> 문자형 데이터)
+ + TO_CHAR(NUMBER[, FORMAT]) : CHARACTER (숫자형 데이터 -> 문자형 데이터)
+ 
+
+ 
+ + TO_DATE(CHARACTER[, FORMAT]) : DATE 
+ + TO_DATE(NUMBER[, FORMAT])    : DATE
+
+ + TO_NUMBER (CHARACTER, [FORMAT]) : NUMBER
+ 
+
+
 
 ### 5. NULL 처리 함수
 -- NVL (컬럼명, 컬럼 값이 NULL일 때 바꿀 값)

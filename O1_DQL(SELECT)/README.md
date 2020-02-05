@@ -1,4 +1,4 @@
-# DCL(SELECT)
+# DQL(SELECT)
 
 + [SELECT](#SELECT)
 
@@ -69,7 +69,7 @@ Result Set은 0개 이상의 행이 포함 될 수 있고 특정 기준에 의�
 -----------------
 
 ## SELECT 기본 예시
-[  BACK](#dclselect)
+[  BACK](#dqlselect)
 
 + 직원 전부의 사번과 이름, 월급을 조회하는 구문
 
@@ -91,7 +91,7 @@ FROM EMPLOYEE;
 ```
 
 ## 컬럼 별칭 사용법
-[  BACK](#dclselect)
+[  BACK](#dqlselect)
 
 + 컬럼 명 AS 별칭
 + 컬럼 명 "별칭"
@@ -119,4 +119,4 @@ FROM EMPLOYEE;
 ```
 ------------------------------------------
 
-+ [문서 맨위로](#dclselect)
++ [문서 맨위로](#dqlselect)

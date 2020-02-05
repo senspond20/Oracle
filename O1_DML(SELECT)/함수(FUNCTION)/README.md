@@ -12,7 +12,7 @@
 ▶  [단일 행 함수 (SINGLE ROW FUNCTION)](#단일행-함수single-row-function)
 +  N개의 값을 넣어서 N개의 결과 리턴
 
-▶  [그룹 함수(GROUP FUNCTION)](url)
+▶  [그룹 함수(GROUP FUNCTION)](#그룹-함수-group-function)
 +   S개의 값을 넣어서 한개의 결과 리턴
 
 -- )) SELECT 절에 단일 행 함수랑 그룹 함수를 같이 써도 되는가?

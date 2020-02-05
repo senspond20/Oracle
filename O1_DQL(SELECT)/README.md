@@ -1,4 +1,4 @@
-# DML(SELECT)
+# DCL(SELECT)
 
 + [SELECT](#SELECT)
 

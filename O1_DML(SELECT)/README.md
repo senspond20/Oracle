@@ -115,3 +115,6 @@ ex) EMPLOYEE 테이블에서 직원의 직원 번호, 사원 명, 급여, 단위
 SELECT EMP_ID "직원 번호", EMP_NAME "사원 명", SALARY "급여", '원' AS 단위
 FROM EMPLOYEE;
 ```
+------------------------------------------
+
++ [문서 맨위로](#SELECT)

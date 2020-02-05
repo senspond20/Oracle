@@ -8,7 +8,7 @@
 
 + [리터널](#리터럴)
 
-+ [함수](https://github.com/senspond20/Oracle/tree/master/O1_DML(SELECT)/함수(FUNCTION))
++ [함수](https://github.com/senspond20/Oracle/tree/master/O1_DCL(SELECT)/함수(FUNCTION))
 -------------------------
 ## SELECT
 ```
@@ -69,7 +69,7 @@ Result Set은 0개 이상의 행이 포함 될 수 있고 특정 기준에 의�
 -----------------
 
 ## SELECT 기본 예시
-[  BACK](#dmlselect)
+[  BACK](#dclselect)
 
 + 직원 전부의 사번과 이름, 월급을 조회하는 구문
 
@@ -91,7 +91,7 @@ FROM EMPLOYEE;
 ```
 
 ## 컬럼 별칭 사용법
-[  BACK](#dmlselect)
+[  BACK](#dclselect)
 
 + 컬럼 명 AS 별칭
 + 컬럼 명 "별칭"
@@ -119,4 +119,4 @@ FROM EMPLOYEE;
 ```
 ------------------------------------------
 
-+ [문서 맨위로](#dmlselect)
++ [문서 맨위로](#dclselect)

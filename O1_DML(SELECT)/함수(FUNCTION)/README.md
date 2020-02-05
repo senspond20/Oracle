@@ -9,7 +9,7 @@
 ▶  함수를 사용 할 수 있는 위치
 +  SELECT 절, WHERE절, GROUP BY절, HAVING 절, ORDER BY 절
 
-▶  [단일 행 함수 (SINGLE ROW FUNCTION)](url)
+▶  [단일 행 함수 (SINGLE ROW FUNCTION)](#단일행-함수single-row-function)
 +  N개의 값을 넣어서 N개의 결과 리턴
 
 ▶  [그룹 함수(GROUP FUNCTION)](url)

@@ -14,11 +14,11 @@
 ```
 + (필수적으로 있어야 하는 구문 -> SELECT, FROM)
 
-    + [SELECT 컬럼 명 [, 컬럼명, ...]]()
+    + SELECT 컬럼 명 [, 컬럼명, ...]
 
-    + [FROM 테이블 명]()
+    + FROM 테이블 명
 
-    + [WHERE 조건식]();
+    + WHERE 조건식;
 
 ```sql
 SELECT * FROM EMPLOYEE; -- * ASTRO 전체를 의미
@@ -75,5 +75,32 @@ FROM EMPLOYEE;
 + 컬럼 값에 대해 산술 연산한 결과 조회 가능
 ```sql
 SELECT EMP_NAME, SALARY * 12, (SALARY + (SALARY * BONUS)) * 12
+FROM EMPLOYEE;
+```
+
+## 컬럼 별칭
+
++ 컬럼 명 AS 별칭
++ 컬럼 명 "별칭"
++ 컬럼 명 AS "별칭" 
++ 컬럼 명 별칭
++ 별칭에 띄어쓰기, 특수문자, 숫자가 포함될 경우 무조건 "" 으로 묶어야 한다.
+
+ex) EMPLOYEE 테이블에서 직원의 직원명(별칭 : 이름), 연봉(별칭 : 연봉(원)), 보너스를 추가한 연봉(별칭 : 총소득(원)) 조합
+
+```sql
+SELECT EMP_NAME 이름, SALARY * 12 "연봉(원)" , SALARY * (1+BONUS) * 12 AS "총소득(원)"
+FROM EMPLOYEE;
+```
+
+## 리터럴 
+
++ 임의로 정한 문자열을 SELECT 절에 사용하면 테이블에 존재하는 데이터처럼 사용 가능
+-- 문자나 날짜 리터널은 ' ' 기호 사용되며 모든 행에 반복 표시 됨
+
+ex) EMPLOYEE 테이블에서 직원의 직원 번호, 사원 명, 급여, 단위(데이터 값 : 원) 조회
+
+```sql
+SELECT EMP_ID "직원 번호", EMP_NAME "사원 명", SALARY "급여", '원' AS 단위
 FROM EMPLOYEE;
 ```

@@ -2,23 +2,27 @@
 
 + FUNCTION(매개변수)   : 리턴값
 
++ 칼럼의 값을 읽어서 계산한 결과 리턴
+
 + 오라클에서 함수는 자바에서 메소드와 같은 애기다.
 
-+ 칼럼의 값을 읽어서 계산한 결과 리턴
++ ##  [단일 행 함수 (SINGLE ROW FUNCTION)](#단일행-함수single-row-function)
+       +  N개의 값을 넣어서 N개의 결과 리턴
+
++ ## [그룹 함수(GROUP FUNCTION)](#그룹-함수-group-function)
+       +   S개의 값을 넣어서 한개의 결과 리턴
+
+--------------------------------------------
+
+## point 
 
 ▶  함수를 사용 할 수 있는 위치
 +  SELECT 절, WHERE절, GROUP BY절, HAVING 절, ORDER BY 절
 
-▶  [단일 행 함수 (SINGLE ROW FUNCTION)](#단일행-함수single-row-function)
-+  N개의 값을 넣어서 N개의 결과 리턴
+▶  SELECT 절에 단일 행 함수와 그룹 함수를 함께 사용 못한다.
++ 결과(result) 행의 개수가 다르기 때문
 
-▶  [그룹 함수(GROUP FUNCTION)](#그룹-함수-group-function)
-+   S개의 값을 넣어서 한개의 결과 리턴
-
--- SELECT 절에 단일 행 함수와 그룹 함수를 함께 사용 못한다.
-+ 결과 행의 개수가 다르기 때문
-
-▶ 예시
++ 예시)
 
 -- LENGTH 단일 행 함수
 ```sql

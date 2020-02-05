@@ -5,7 +5,15 @@
 --------------------------
 
 + 오라클/개발도구 설치
-https://www.oracle.com/downloads/
+
+1. 오라클 다운로드 홈페이지(https://www.oracle.com/downloads/) 접속 
+2. Downloads – Oracle Database 11g Express Edition 다운로드 
+3.  설치 및 관리자 계정 암호 설정 
+4. DB 접속 확인 및 SQLPlus 실행 
+5. 관리자 계정 로그인
+
+* SQL Developer 다운로드 
+
 
 + CMD -> sqlplus
 + Developer Tool -> 컨트롤 엔터 :

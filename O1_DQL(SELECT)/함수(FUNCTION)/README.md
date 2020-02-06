@@ -88,121 +88,127 @@ FROM EMPLOYEE;
  + TO_CHAR(DATE|NUMBER [, FORMAT]) : CHARACTER  (날짜/숫자형 데이터 -> 문자형 데이터)
  
 ```sql
-SELECT TO_CHAR(1234) FROM DUAL; 
--- RESULT : 1234
-SELECT TO_CHAR(1234, '99999') FROM DUAL; 
--- RESULT :  1234  ( 5칸, 오른쪽 정렬, 빈칸 공백)
-SELECT TO_CHAR(1234, '00000') FROM DUAL; 
--- RESULT : 01234  ( 5칸, 오른쪽 정렬, 빈칸 0 )
+       SELECT TO_CHAR(1234) FROM DUAL; 
+       -- RESULT : 1234
+       SELECT TO_CHAR(1234, '99999') FROM DUAL; 
+       -- RESULT :  1234  ( 5칸, 오른쪽 정렬, 빈칸 공백)
+       SELECT TO_CHAR(1234, '00000') FROM DUAL; 
+       -- RESULT : 01234  ( 5칸, 오른쪽 정렬, 빈칸 0 )
 
-SELECT TO_CHAR(1234, 'L99999') FROM DUAL; 
--- RESULT :   ￦1234 ==> L 로컬화폐(한국:￦) / $ 달러
-SELECT TO_CHAR(1234, 'FML99999') FROM DUAL;
--- RESULT : ￦1234 => FM 을 붙이면 앞의 공백이 제거된다.
-SELECT TO_CHAR(1234, 'FM$99,999') FROM DUAL;
--- RESULT : $1,234 ==> , 구분자 사용가능
-SELECT TO_CHAR(1234, 'FM$00,000') FROM DUAL;
--- RESULT : $01,234
+       SELECT TO_CHAR(1234, 'L99999') FROM DUAL; 
+       -- RESULT :   ￦1234 ==> L 로컬화폐(한국:￦) / $ 달러
+       SELECT TO_CHAR(1234, 'FML99999') FROM DUAL;
+       -- RESULT : ￦1234 => FM 을 붙이면 앞의 공백이 제거된다.
+       SELECT TO_CHAR(1234, 'FM$99,999') FROM DUAL;
+       -- RESULT : $1,234 ==> , 구분자 사용가능
+       SELECT TO_CHAR(1234, 'FM$00,000') FROM DUAL;
+       -- RESULT : $01,234
 
-SELECT TO_CHAR(1234, '9.9EEEE') FROM DUAL;
--- RESULT :   1.2E+03 ==> 지수표현
-SELECT TO_CHAR(1234, '999') FROM DUAL; 
--- RESULT : #### ==> EX. 엑셀에서 칸을 줄이면 #으로 치환되는 것과 동일
+       SELECT TO_CHAR(1234, '9.9EEEE') FROM DUAL;
+       -- RESULT :   1.2E+03 ==> 지수표현
+       SELECT TO_CHAR(1234, '999') FROM DUAL; 
+       -- RESULT : #### ==> EX. 엑셀에서 칸을 줄이면 #으로 치환되는 것과 동일
 ```
 
  + TO_DATE(CHARACTER|NUMBER [, FORMAT]) : DATE (문자/숫자형 데이터 -> 날짜형 데이터)
 
 ```sql
-SELECT TO_CHAR(SYSDATE, 'PM HH24:MI:SS') FROM DUAL;
--- RESULT : 오전 09:22:45 ==> 오전/오후 상관없이 알아서 나온다.
-SELECT TO_CHAR(SYSDATE, 'AM HH:MI:SS') FROM DUAL;
--- RESULT : 오전 09:22:53
+       SELECT TO_CHAR(SYSDATE, 'PM HH24:MI:SS') FROM DUAL;
+       -- RESULT : 오전 09:22:45 ==> 오전/오후 상관없이 알아서 나온다.
+       SELECT TO_CHAR(SYSDATE, 'AM HH:MI:SS') FROM DUAL;
+       -- RESULT : 오전 09:22:53
 
-SELECT TO_CHAR(SYSDATE, 'MON DY, YYYY') FROM DUAL;
--- RESULT : 2월 목, 2020
-SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD DAY') FROM DUAL;
--- RESULT : 2020-02-06 목요일 
-SELECT TO_CHAR(SYSDATE, 'YYYY-FMMM-DD DAY') FROM DUAL;
--- RESULT : 2020-2-6 목요일 
+       SELECT TO_CHAR(SYSDATE, 'MON DY, YYYY') FROM DUAL;
+       -- RESULT : 2월 목, 2020
+       SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD DAY') FROM DUAL;
+       -- RESULT : 2020-02-06 목요일 
+       SELECT TO_CHAR(SYSDATE, 'YYYY-FMMM-DD DAY') FROM DUAL;
+       -- RESULT : 2020-2-6 목요일 
 
-SELECT TO_CHAR(SYSDATE, 'YEAR, Q')||'분기' FROM DUAL;
--- RESULT : TWENTY TWENTY, 1분기 
-SELECT TO_CHAR(TO_DATE('20/12/30'),'Q') FROM DUAL; 
---RESULT : 4 ==> 4분기
+       SELECT TO_CHAR(SYSDATE, 'YEAR, Q')||'분기' FROM DUAL;
+       -- RESULT : TWENTY TWENTY, 1분기 
+       SELECT TO_CHAR(TO_DATE('20/12/30'),'Q') FROM DUAL; 
+       --RESULT : 4 ==> 4분기
 
-SELECT TO_CHAR(SYSDATE, 'YYYY"년"MM"월"DD"일" DAY') FROM DUAL;
--- RESULT : 2020년02월06일 목요일 ==> 넣으려는 문자 년,월,일을 " " 로 감싸서 넣어준다.
+       SELECT TO_CHAR(SYSDATE, 'YYYY"년"MM"월"DD"일" DAY') FROM DUAL;
+       -- RESULT : 2020년02월06일 목요일 ==> 넣으려는 문자 년,월,일을 " " 로 감싸서 넣어준다.
 
--- < 오늘 날짜에 대해 > --
--- 연도 출력
-SELECT TO_CHAR(SYSDATE,'YYYY'), TO_CHAR(SYSDATE, 'YY'),TO_CHAR(SYSDATE, 'YEAR') FROM DUAL;
--- RESULT : 20	2020	TWENTY TWENTY
--- 월 출력
-SELECT TO_CHAR(SYSDATE, 'MM'), TO_CHAR(SYSDATE, 'MONTH'), TO_CHAR(SYSDATE, 'MON'), TO_CHAR(SYSDATE, 'RM')
-FROM DUAL;
--- RESULT : 02	2월 	2월 	II  
+       -- < 오늘 날짜에 대해 > --
 
--- 일 출력
-SELECT TO_CHAR(SYSDATE, 'DDD'), -- 년 기준으로 일째
-       TO_CHAR(SYSDATE, 'DD'), -- 이번 달 기준으로 몇일째인지
-       TO_CHAR(SYSDATE, 'D') -- 이번주의 몇일째인지 (일 1, 월2, 화3 )
-FROM DUAL;
--- RESULT : 037	06	5
+       -- 연도 출력
+       SELECT TO_CHAR(SYSDATE,'YYYY'), TO_CHAR(SYSDATE, 'YY'),TO_CHAR(SYSDATE, 'YEAR') FROM DUAL;
+       -- RESULT : 20	2020	TWENTY TWENTY
 
--- 분기, 요일 출력
-SELECT TO_CHAR(SYSDATE, 'Q'),
-       TO_CHAR(SYSDATE, 'DAY'),
-       TO_CHAR(SYSDATE, 'DY')
-FROM DUAL;
---RESULT : 1	목요일	목
+       -- 월 출력
+       SELECT TO_CHAR(SYSDATE, 'MM'), TO_CHAR(SYSDATE, 'MONTH'), TO_CHAR(SYSDATE, 'MON'), TO_CHAR(SYSDATE, 'RM')
+       FROM DUAL;
+       -- RESULT : 02	2월 	2월 	II  
+
+       -- 일 출력
+       SELECT TO_CHAR(SYSDATE, 'DDD'), -- 년 기준으로 일째
+              TO_CHAR(SYSDATE, 'DD'), -- 이번 달 기준으로 몇일째인지
+              TO_CHAR(SYSDATE, 'D') -- 이번주의 몇일째인지 (일 1, 월2, 화3 )
+       FROM DUAL;
+       -- RESULT : 037	06	5
+
+       -- 분기, 요일 출력
+       SELECT TO_CHAR(SYSDATE, 'Q'),
+              TO_CHAR(SYSDATE, 'DAY'),
+              TO_CHAR(SYSDATE, 'DY')
+       FROM DUAL;
+       --RESULT : 1	목요일	목
 ```
  + TO_NUMBER (CHARACTER, [FORMAT]) : NUMBER (문자형 데이터 --> 숫자형 데이터)
 
 ```SQL
-ELECT TO_DATE('20100101', 'YYYYMMDD') FROM DUAL;
--- RESULT : 10/01/01
-SELECT TO_DATE(20100101, 'YYYYMMDD') FROM DUAL;
--- RESULT : 10/01/01 
--- 오라클에서는 기본적으로 연도를 출력할때는 뒤의 두숫자만 나오게 설정되어있다.
+       ELECT TO_DATE('20100101', 'YYYYMMDD') FROM DUAL;
+       -- RESULT : 10/01/01
+       SELECT TO_DATE(20100101, 'YYYYMMDD') FROM DUAL;
+       -- RESULT : 10/01/01 
+       -- 오라클에서는 기본적으로 연도를 출력할때는 뒤의 두숫자만 나오게 설정되어있다.
 
--- 2010 01 01 ==> 2010, 1월 
-SELECT TO_CHAR(TO_DATE(20100101, 'YYYYMMDD'), 'YYYY,MON') FROM DUAL;
--- RESULT : 2010,1월 
-SELECT TO_CHAR(TO_DATE('041030 143000', 'YYMMDD HH24MISS'), 'YY-MON-DD HH:MI:SS PM')
-FROM DUAL;
--- RESULT : 04-10월-30 02:30:00 오후 식
+       -- 2010 01 01 ==> 2010, 1월 
+       SELECT TO_CHAR(TO_DATE(20100101, 'YYYYMMDD'), 'YYYY,MON') FROM DUAL;
+       -- RESULT : 2010,1월 
+       SELECT TO_CHAR(TO_DATE('041030 143000', 'YYMMDD HH24MISS'), 'YY-MON-DD HH:MI:SS PM')
+       FROM DUAL;
+       -- RESULT : 04-10월-30 02:30:00 오후 식
 
--- RR과 YY의 공통점 : 둘다 년도를 나타낸다.
-SELECT TO_CHAR(TO_DATE('980630','YYMMDD'),'YYYYMMDD') A, -- 20980630
-       TO_CHAR(TO_DATE('140918','YYMMDD'),'YYYYMMDD') B, -- 20140918
-       TO_CHAR(TO_DATE('980630','RRMMDD'),'YYYYMMDD') C, -- 19980630
-       TO_CHAR(TO_DATE('140918','RRMMDD'),'YYYYMMDD') D  -- 20140918
-FROM DUAL;
+       -- RR과 YY의 공통점 : 둘다 년도를 나타낸다.
+       SELECT TO_CHAR(TO_DATE('980630','YYMMDD'),'YYYYMMDD') A, -- 20980630
+              TO_CHAR(TO_DATE('140918','YYMMDD'),'YYYYMMDD') B, -- 20140918
+              TO_CHAR(TO_DATE('980630','RRMMDD'),'YYYYMMDD') C, -- 19980630
+              TO_CHAR(TO_DATE('140918','RRMMDD'),'YYYYMMDD') D  -- 20140918
+       FROM DUAL;
 
--- RR과 YY의 차이점
--- YY : 21세기 (앞 두자리 연도에 현재의 세기를 무조건 맞춰서 넣어준다.)
--- RR : 두자리 년도가 50년 이상이면 이전세기, 50년 미만이면 현재세기
-
+       -- RR과 YY의 차이점
+       -- YY : 21세기 (앞 두자리 연도에 현재의 세기를 무조건 맞춰서 넣어준다.)
+       -- RR : 두자리 년도가 50년 이상이면 이전세기, 50년 미만이면 현재세기
 ```
 
 ### 5. NULL 처리 함수
--- NVL (컬럼명, 컬럼 값이 NULL일 때 바꿀 값)
 
-SELECT EMP_NAME,NVL(BONUS,0)
-FROM EMPLOYEE;
++ NVL (컬럼명, 컬럼 값이 NULL일 때 바꿀 값)
 
-SELECT EMP_NAME , NVL(DEPT_CODE,'없습니다')
-FROM EMPLOYEE;
+```SQL
+       SELECT EMP_NAME,NVL(BONUS,0)
+       FROM EMPLOYEE;
 
--- NVL2 ( 컬럼 명, 바꿀 값1, 바꿀 값 2)
+       SELECT EMP_NAME , NVL(DEPT_CODE,'없습니다')
+       FROM EMPLOYEE;
+```
+
++ NVL2 ( 컬럼 명, 바꿀 값1, 바꿀 값 2)
 -- 컬럼 명 값이 NULL이 아니면 바꿀 값 1로, NULL이면 바꿀 값 2로 해주겠다.
 -- EMPLOYEE 테이블에서 보너스가 NULL인 직원은 0.5로 NULL이 아닌 직원은 0.7로 변경하여 조회
-SELECT EMP_NAME, NVL2(BONUS, 0.7, 0.5)
-FROM EMPLOYEE;
 
-SELECT EMP_NAME, NVL2(BONUS, '안받음', '받음')
-FROM EMPLOYEE;
+```SQL
+       SELECT EMP_NAME, NVL2(BONUS, 0.7, 0.5)
+       FROM EMPLOYEE;
 
+       SELECT EMP_NAME, NVL2(BONUS, '안받음', '받음')
+       FROM EMPLOYEE;
+```
 -- NULLIF(비교대상1, 비교대상2) : 두 개의 값이 동일하면 NULL, 동일하지 않으면 비교대상1 리턴
 SELECT NULLIF(123,123)FROM DUAL;
 

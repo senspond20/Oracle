@@ -24,7 +24,7 @@
     + DATE : 날짜형 데이터
     
  + FORMAT : 출력 형식 (변환형 함수에 쓰임)
- 
+  
   형식 | 의미 | 형식 | 의미
  ------|-------|-----|------
   YYYYY|년도(4자리)|YY |년도(2자리)
@@ -85,8 +85,7 @@ FROM EMPLOYEE;
 
 ### 4. 형 변환 함수
 
- + TO_CHAR(DATE[, FORMAT]) : CHARACTER  (날짜형 데이터 -> 문자형 데이터)
- + TO_CHAR(NUMBER[, FORMAT]) : CHARACTER (숫자형 데이터 -> 문자형 데이터)
+ + TO_CHAR(DATE|NUMBER [, FORMAT]) : CHARACTER  (날짜/숫자형 데이터 -> 문자형 데이터)
  
 ```sql
 SELECT TO_CHAR(1234) FROM DUAL; 
@@ -112,8 +111,7 @@ SELECT TO_CHAR(1234, '999') FROM DUAL;
 -- RESULT : #### ==> EX. 엑셀에서 칸을 줄이면 #으로 치환되는 것과 동일
 ```
 
- + TO_DATE(CHARACTER[, FORMAT]) : DATE 
- + TO_DATE(NUMBER[, FORMAT])    : DATE
+ + TO_DATE(CHARACTER|NUMBER [, FORMAT]) : DATE (문자/숫자형 데이터 -> 날짜형 데이터)
 
 ```sql
 SELECT TO_CHAR(SYSDATE, 'PM HH24:MI:SS') FROM DUAL;
@@ -157,10 +155,34 @@ SELECT TO_CHAR(SYSDATE, 'Q'),
        TO_CHAR(SYSDATE, 'DY')
 FROM DUAL;
 ```
- + TO_NUMBER (CHARACTER, [FORMAT]) : NUMBER
- 
+ + TO_NUMBER (CHARACTER, [FORMAT]) : NUMBER (문자형 데이터 --> 숫자형 데이터)
 
+```SQL
+ELECT TO_DATE('20100101', 'YYYYMMDD') FROM DUAL;
+-- RESULT : 10/01/01
+SELECT TO_DATE(20100101, 'YYYYMMDD') FROM DUAL;
+-- RESULT : 10/01/01 
+-- 오라클에서는 기본적으로 연도를 출력할때는 뒤의 두숫자만 나오게 설정되어있다.
 
+-- 2010 01 01 ==> 2010, 1월 
+SELECT TO_CHAR(TO_DATE(20100101, 'YYYYMMDD'), 'YYYY,MON') FROM DUAL;
+-- RESULT : 2010,1월 
+SELECT TO_CHAR(TO_DATE('041030 143000', 'YYMMDD HH24MISS'), 'YY-MON-DD HH:MI:SS PM')
+FROM DUAL;
+-- RESULT : 04-10월-30 02:30:00 오후 식
+
+-- RR과 YY의 공통점 : 둘다 년도를 나타낸다.
+SELECT TO_CHAR(TO_DATE('980630','YYMMDD'),'YYYYMMDD') A, -- 20980630
+       TO_CHAR(TO_DATE('140918','YYMMDD'),'YYYYMMDD') B, -- 20140918
+       TO_CHAR(TO_DATE('980630','RRMMDD'),'YYYYMMDD') C, -- 19980630
+       TO_CHAR(TO_DATE('140918','RRMMDD'),'YYYYMMDD') D  -- 20140918
+FROM DUAL;
+
+-- RR과 YY의 차이점
+-- YY : 21세기 (앞 두자리 연도에 현재의 세기를 무조건 맞춰서 넣어준다.)
+-- RR : 두자리 년도가 50년 이상이면 이전세기, 50년 미만이면 현재세기
+
+```
 
 ### 5. NULL 처리 함수
 -- NVL (컬럼명, 컬럼 값이 NULL일 때 바꿀 값)

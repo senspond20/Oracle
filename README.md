@@ -2,14 +2,22 @@
 
 ## ▶목차
 
++ 연습문제
+
+-------------------------------------------
+
 + 데이터베이스 개요
 
 + [오라클시작하기](https://github.com/senspond20/Oracle/tree/master/1_오라클시작하기)
 
+
+
 + [O1_DQL(SELECT)](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)#dclselect)
+  + 함수(FUNCTION)
 
 + 02
 
+--------------------------------
 
 DQL (질의어) 
  - SELECT : 테이블에 저장된 데이터를 조회하는 데 사용되는 가장 기본적인 문법이고 가장 많이 사용됨

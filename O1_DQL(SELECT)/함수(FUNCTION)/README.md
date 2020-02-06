@@ -276,9 +276,9 @@ FROM EMPLOYEE;
 
 # 그룹 함수 (GROUP FUNCTION)
 
-+ 여러 행을 넣으면 한개의 결과 반환
++ < 여러 행을 넣으면 한개의 결과 반환 >
 
-   + SUM (숫자가 기록된 컬럼) : 합계
++ SUM (숫자가 기록된 컬럼) : 합계
 ```SQL
 -- EMPLOYEE 테이블에서 전 사원의 급여 총합 조회
 SELECT SUM(SALARY) AS 급여총합

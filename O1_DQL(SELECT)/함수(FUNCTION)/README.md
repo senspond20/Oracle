@@ -87,7 +87,7 @@ FROM EMPLOYEE;
 
  + TO_CHAR(DATE|NUMBER [, FORMAT]) : CHARACTER  (날짜/숫자형 데이터 -> 문자형 데이터)
  
-```sql
+       ```sql
        SELECT TO_CHAR(1234) FROM DUAL; 
        -- RESULT : 1234
        SELECT TO_CHAR(1234, '99999') FROM DUAL; 
@@ -108,11 +108,11 @@ FROM EMPLOYEE;
        -- RESULT :   1.2E+03 ==> 지수표현
        SELECT TO_CHAR(1234, '999') FROM DUAL; 
        -- RESULT : #### ==> EX. 엑셀에서 칸을 줄이면 #으로 치환되는 것과 동일
-```
+       ```
 
  + TO_DATE(CHARACTER|NUMBER [, FORMAT]) : DATE (문자/숫자형 데이터 -> 날짜형 데이터)
 
-```sql
+       ```sql
        SELECT TO_CHAR(SYSDATE, 'PM HH24:MI:SS') FROM DUAL;
        -- RESULT : 오전 09:22:45 ==> 오전/오후 상관없이 알아서 나온다.
        SELECT TO_CHAR(SYSDATE, 'AM HH:MI:SS') FROM DUAL;
@@ -157,10 +157,10 @@ FROM EMPLOYEE;
               TO_CHAR(SYSDATE, 'DY')
        FROM DUAL;
        --RESULT : 1	목요일	목
-```
+       ```
  + TO_NUMBER (CHARACTER, [FORMAT]) : NUMBER (문자형 데이터 --> 숫자형 데이터)
 
-```SQL
+       ```SQL
        ELECT TO_DATE('20100101', 'YYYYMMDD') FROM DUAL;
        -- RESULT : 10/01/01
        SELECT TO_DATE(20100101, 'YYYYMMDD') FROM DUAL;
@@ -184,38 +184,40 @@ FROM EMPLOYEE;
        -- RR과 YY의 차이점
        -- YY : 21세기 (앞 두자리 연도에 현재의 세기를 무조건 맞춰서 넣어준다.)
        -- RR : 두자리 년도가 50년 이상이면 이전세기, 50년 미만이면 현재세기
-```
+       ```
 
 ### 5. NULL 처리 함수
 
 + NVL (컬럼명, 컬럼 값이 NULL일 때 바꿀 값)
 
-```SQL
+       ```SQL
        SELECT EMP_NAME,NVL(BONUS,0)
        FROM EMPLOYEE;
 
        SELECT EMP_NAME , NVL(DEPT_CODE,'없습니다')
        FROM EMPLOYEE;
-```
+       ```
 
 + NVL2 ( 컬럼 명, 바꿀 값1, 바꿀 값 2)
 -- 컬럼 명 값이 NULL이 아니면 바꿀 값 1로, NULL이면 바꿀 값 2로 해주겠다.
 -- EMPLOYEE 테이블에서 보너스가 NULL인 직원은 0.5로 NULL이 아닌 직원은 0.7로 변경하여 조회
 
-```SQL
+       ```SQL
        SELECT EMP_NAME, NVL2(BONUS, 0.7, 0.5)
        FROM EMPLOYEE;
 
        SELECT EMP_NAME, NVL2(BONUS, '안받음', '받음')
        FROM EMPLOYEE;
-```
--- NULLIF(비교대상1, 비교대상2) : 두 개의 값이 동일하면 NULL, 동일하지 않으면 비교대상1 리턴
-SELECT NULLIF(123,123)FROM DUAL;
+       ```
++ NULLIF(비교대상1, 비교대상2) : 두 개의 값이 동일하면 NULL, 동일하지 않으면 비교대상1 리턴
+       ```SQL
+       SELECT NULLIF(123,123)FROM DUAL;
 
-SELECT NULLIF(123,124) FROM DUAL;
+       SELECT NULLIF(123,124) FROM DUAL;
 
-SELECT TO_CHAR(TO_DATE('2020/06/30'), 'Q') FROM DUAL;
-SELECT TO_CHAR(HIRE_DATE,'YYYY-MM-DD') FROM EMPLOYEE;
+       SELECT TO_CHAR(TO_DATE('2020/06/30'), 'Q') FROM DUAL;
+       SELECT TO_CHAR(HIRE_DATE,'YYYY-MM-DD') FROM EMPLOYEE;
+       ```
 
 ### 6. 선택함수 
 

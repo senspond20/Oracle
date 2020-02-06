@@ -29,8 +29,11 @@
  ------|-------|-----|------
   YYYYY|년도(4자리)|YY |년도(2자리)
   MM | 월을 숫자로|MON|월을 문자로
+  FMMM |월(02->2)  | FMDD | 일(02->2)
   DD | 일을 숫자로|DY|요일을 약어로
-  DAY| 요일   |L | 로컬 화폐표시
+  DAY| 요일       |Q| 분기
+  |L | 로컬 화폐표시 |$|달러
+  |FM | 공백제거   |,| 구분자
   '0000'| 0123 |'9999' | 123
          
 
@@ -85,8 +88,27 @@ FROM EMPLOYEE;
  + TO_CHAR(DATE[, FORMAT]) : CHARACTER  (날짜형 데이터 -> 문자형 데이터)
  + TO_CHAR(NUMBER[, FORMAT]) : CHARACTER (숫자형 데이터 -> 문자형 데이터)
  
+```sql
+SELECT TO_CHAR(1234) FROM DUAL; -- RESULT : 1234
+SELECT TO_CHAR(1234, '99999') FROM DUAL; -- RESULT :  1234  ( 5칸, 오른쪽 정렬, 빈칸 공백)
+SELECT TO_CHAR(1234, '00000') FROM DUAL; -- RESULT : 01234  ( 5칸, 오른쪽 정렬, 빈칸 0 )
+SELECT TO_CHAR(1234, 'L99999') FROM DUAL; 
+-- RESULT :          ￦1234 ==> L 로컬화폐(한국:￦) / $ 달러
 
- 
+SELECT TO_CHAR(1234, 'FML99999') FROM DUAL;
+-- RESULT : ￦1234 => FM 을 붙이면 앞의 공백이 제거된다.
+
+SELECT TO_CHAR(1234, 'FM$99,999') FROM DUAL;
+-- RESULT : $1,234 ==> , 구분자 사용가능
+SELECT TO_CHAR(1234, 'FM$00,000') FROM DUAL;
+-- RESULT : $01,234
+
+SELECT TO_CHAR(1234, '9.9EEEE') FROM DUAL;
+-- RESULT :   1.2E+03 ==> 지수표현
+SELECT TO_CHAR(1234, '999') FROM DUAL;
+-- RESULT : #### ==> EX. 엑셀에서 칸을 줄이면 #으로 치환되는 것과 동일
+```
+
  + TO_DATE(CHARACTER[, FORMAT]) : DATE 
  + TO_DATE(NUMBER[, FORMAT])    : DATE
 

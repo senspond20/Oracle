@@ -188,11 +188,7 @@ FROM EMPLOYEE;
 
 ### 5. NULL 처리 함수
 
-+ NVL(P1, P2)
-       + * P1 : NULL데이터를 처리할 컬럼명 혹은 값 
-       + * P2 : NULL값을 대체하고자 하는 
-
-+ NVL (컬럼명, 컬럼 값이 NULL일 때 바꿀 값)
++ NVL (P1: 컬럼명, P2 :컬럼 값이 NULL일 때 바꿀 값) : NUMBER | CHARACTER
 
  ```SQL
        SELECT EMP_NAME,NVL(BONUS,0)  FROM EMPLOYEE; 
@@ -203,8 +199,6 @@ FROM EMPLOYEE;
   ```
 
 + NVL2 ( 컬럼 명, 바꿀 값1, 바꿀 값 2)
--- 컬럼 명 값이 NULL이 아니면 바꿀 값 1로, NULL이면 바꿀 값 2로 해주겠다.
--- EMPLOYEE 테이블에서 보너스가 NULL인 직원은 0.5로 NULL이 아닌 직원은 0.7로 변경하여 조회
 
 ```SQL
        -- EMPLOYEE 테이블에서 보너스가 NULL인 직원은 '안받음' NULL이 아닌 직원은 '받음'으로 변경하여 조회
@@ -222,24 +216,28 @@ FROM EMPLOYEE;
 
 -- 여러 가지 경우 선택 할 수 있는 기능 제공
 
-+ DECODE (계산식 | 컬럼명, 조건값1, 선택값1, 조건값2, 선택값2....)
++ DECODE(계산식|컬럼명, 조건1, 결과1, 조건2, 결과2, …, DEFAULT) : 결과
+
 -- 비교하고자 하는 값 또는 컬럼이 조건식과 같으면 결과 값 반환
+```SQL
+       SELECT EMP_ID, EMP_NAME, EMP_NO,
+              DECODE(SUBSTR(EMP_NO, 8,1),1,'남',2,'여') 성별
+       FROM EMPLOYEE;
 
-SELECT EMP_ID, EMP_NAME, EMP_NO,
-       DECODE(SUBSTR(EMP_NO, 8,1),1,'남',2,'여') 성별
-FROM EMPLOYEE;
-
-SELECT EMP_ID, EMP_NAME, EMP_NO,
-       DECODE(SUBSTR(EMP_NO, 8,1),1,'남','여') 성별
-FROM EMPLOYEE;
-
+       SELECT EMP_ID, EMP_NAME, EMP_NO,
+              DECODE(SUBSTR(EMP_NO, 8,1),1,'남','여') 성별
+       FROM EMPLOYEE;
+```
 -- 마지막 인자로 조건 값 없이 선택 값을 작성하면
 -- 아무 것도 해당되지 않을 때 마지막에 작성한 선택값을 무조건 선택함
 
++ CASE
+```SQL
 -- CASE WHEN 조건식 THEN 결과 값
 --      WHEN 조건식 THEN 결과 값
 --      ELSE 결과 값
 -- END
+
 -- 비교하고자 하는 값 또는 컬럼이 조건식과 같으면 결과 값 반환(조건은 범위 가능)
 
 SELECT EMP_ID, EMP_NAME, EMP_NO,
@@ -274,36 +272,44 @@ SELECT EMP_ID, EMP_NAME, SALARY,
      ELSE '4등급'
      END) AS 등급
 FROM EMPLOYEE;
+```
 
 # 그룹 함수 (GROUP FUNCTION)
--- 여러 행을 넣으면 한개의 결과 반환
--- SUM (숫자가 기록된 컬럼) : 합계
 
--- EMPLOYEE 테이블에서 전 사원의 급여 총합 조회
-SELECT SUM(SALARY) AS 급여총합
-FROM EMPLOYEE;
++ 여러 행을 넣으면 한개의 결과 반환
 
--- EMPLOYEE 테이블에서 남자 사원의 급여 총합 조회
-SELECT SUM(SALARY) AS "급여총합(남)"
-FROM EMPLOYEE
-WHERE SUBSTR(EMP_NO, 8, 1) = 1;
+   + SUM (숫자가 기록된 컬럼) : 합계
+```SQL
+       -- EMPLOYEE 테이블에서 전 사원의 급여 총합 조회
+       SELECT SUM(SALARY) AS 급여총합
+       FROM EMPLOYEE;
 
--- AVG(숫자가 기록된 컬럼) : 평균 리턴
--- EMPLOYEE 테이블에서 전 사원의 급여 평균 조회
-SELECT AVG(SALARY)FROM EMPLOYEE;
+       -- EMPLOYEE 테이블에서 남자 사원의 급여 총합 조회
+       SELECT SUM(SALARY) AS "급여총합(남)"
+       FROM EMPLOYEE
+       WHERE SUBSTR(EMP_NO, 8, 1) = 1;
+```
 
--- EMPLOYEE 테이블에서 전 사원의 BONUS 합계 조회
-SELECT SUM(BONUS) FROM EMPLOYEE;
+   + AVG(숫자가 기록된 컬럼) : 평균 리턴
+```SQL
+       -- EMPLOYEE 테이블에서 전 사원의 급여 평균 조회
+       SELECT AVG(SALARY)FROM EMPLOYEE;
 
--- EMPLOYEE 테이블에서 전 사원의 BONUS 평균 조회
-SELECT AVG(BONUS) , AVG(NVL(BONUS,0)) FROM EMPLOYEE;
+       -- EMPLOYEE 테이블에서 전 사원의 BONUS 합계 조회
+       SELECT SUM(BONUS) FROM EMPLOYEE;
 
--- AVG(NVL(BONUS,0)) -- NULL값을 가진 행은 평균 계산에서 제외 되어 계산
--- RESULT 0.2166666666666666666666666666666666666667 / 0.0847826086956521739130434782608695652174
+       -- EMPLOYEE 테이블에서 전 사원의 BONUS 평균 조회
+       SELECT AVG(BONUS) , AVG(NVL(BONUS,0)) FROM EMPLOYEE;
 
--- MIN / MAX : 최소/최대
--- EMPLOYEE 테이블에서 가장 적은 급여, 알파벳 순서가 가장 빠른 이메일, 가장 빠른 입사일 
-SELECT MIN(SALARY), MIN(EMAIL), MIN(HIRE_DATE)
-FROM EMPLOYEE;
+       -- AVG(NVL(BONUS,0)) -- NULL값을 가진 행은 평균 계산에서 제외 되어 계산
+       -- RESULT 0.2166666666666666666666666666666666666667 / 0.0847826086956521739130434782608695652174
+```
+
+  + MIN / MAX : 최소/최대
+```SQL
+       -- EMPLOYEE 테이블에서 가장 적은 급여, 알파벳 순서가 가장 빠른 이메일, 가장 빠른 입사일 
+       SELECT MIN(SALARY), MIN(EMAIL), MIN(HIRE_DATE)
+       FROM EMPLOYEE;
+```
 
 [맨 위로](#함수-function)

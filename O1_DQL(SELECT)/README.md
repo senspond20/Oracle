@@ -1,13 +1,4 @@
 # DQL(SELECT)
-
-+ [SELECT](#SELECT)
-
-+ [SELECT 기본 예시](#SELECT-기본-예시)
-
-+ [컬럼 별칭 사용법](#컬럼-별칭-사용법)
-
-+ [리터널](#리터럴)
-
 --------------------------------------
 
 + [함수](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)/%ED%95%A8%EC%88%98(FUNCTION)#%ED%95%A8%EC%88%98-function)
@@ -15,19 +6,19 @@
 + d2
 + d3
 -------------------------
-## SELECT
-```
-▶ SELECT
-```
+
+## Result Set
+
 - 데이터 조회한 결과를 Result Set이라고 하는데
 - SELECT 구문에 의해 반환된 행들의 집합을 의미
 - Result Set은 0개 이상의 행이 포함될 수 있고 특정 기준에 의해 정렬 가능
 - 한 테이블의 특정 컬럼, 행 , 행/컬럼 또는 여러 테이블의 특정 행/컬럼 조회 가능
 
+※ JDBC - Result Set 가지고 사용하는것이 있다. 기억!
 
-```
-▶ SELECT 작성법
-```
+
+## SELECT 작성법
+
 + (필수적으로 있어야 하는 구문 -> SELECT, FROM)
 
     + SELECT 컬럼 명 [, 컬럼명, ...]
@@ -59,17 +50,18 @@ select * from employee where job_code = 'J1';
     + 행을 선택하는 조건 기술
     + 여러 개의 제한 조건을 포함 할 수 있으며,
 
+------------------------------------------------
+## SELECT 문 실행되는 순서
 
-```
-▶ Result Set
-```
+|순서| SELECT 문 |--|
+|-----|--------------------| --|
+| 5 | SELECT |조회를 하고|
+| 1 | FROM   |제일 먼저 판을 깔아놓는다.|
+| 2 | WHERE |어디서?|
+| 3 | GROUP BY |그룹 함수를 위해|
+| 4 | HAVING |그룹 함수에 대한 조건|
+| 6 | ORDER BY |정렬하고 끝낸다.|
 
-데이터를 조회한 결과를 Result Set 이라고 하는데 
-SELECT 구문에 의해 반환된 행들의 집합을 의미함
-
-Result Set은 0개 이상의 행이 포함 될 수 있고 특정 기준에 의해 정렬 가능한 테이블의 특정 컬럼, 행, 행/컬럼 또는 여러 테이블의 특정 행/컬럼 조회 가능
-
-※ JDBC - Result Set 가지고 사용하는것이 있다. 기억!
 
 -----------------
 
@@ -89,7 +81,7 @@ FROM EMPLOYEE;
 // * 아스트로
 ```
 
-+ 컬럼 값에 대해 산술 연산한 결과 조회 가능
++ **컬럼 값에 대해 산술 연산한 결과 조회 가능**
 ```sql
 SELECT EMP_NAME, SALARY * 12, (SALARY + (SALARY * BONUS)) * 12
 FROM EMPLOYEE;

@@ -39,8 +39,13 @@ GROUP BY DEPT_CODE;
 ## 집합 연산자
 + 여러개의 SELECT 결과물을 하나의 쿼리로 만드는 연산자
 
-UNION (합집합) UNION ALL(공통된 부분이 두번들어간 합집합)
-INTERSECT(교집합) MINUS(차집합)
+    + UNION (합집합) 
+
+    + UNION ALL(공통된 부분이 두번들어간 합집합)
+
+    + INTERSECT(교집합) 
+
+    + MINUS(차집합)
 
 
 + 정리할것

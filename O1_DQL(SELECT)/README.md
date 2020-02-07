@@ -18,6 +18,7 @@
 
 
 ## SELECT 작성법
+[  BACK](#dqlselect)
 
 + (필수적으로 있어야 하는 구문 -> SELECT, FROM)
 
@@ -52,6 +53,7 @@ select * from employee where job_code = 'J1';
 
 ------------------------------------------------
 ## SELECT 문 실행되는 순서
+[  BACK](#dqlselect)
 
 |순서| SELECT 문 |--|
 |-----|--------------------| --|

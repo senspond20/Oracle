@@ -188,6 +188,8 @@ SELECT TRIM(BOTH 'Z' FROM 'ZZZ123456ZZZ') FROM DUAL; -- 양쪽
 
 ## 2. 숫자 관련 함수
 
+[ BACK](#함수-function)
+
 ![func2](https://user-images.githubusercontent.com/60596128/73858671-1e512380-487c-11ea-80bd-6d0a18beda4d.png)
 
 + ABS : 절대 값을 리턴해주는 함수
@@ -260,6 +262,9 @@ SELECT CEIL(123.678) FROM DUAL;
 ```
 
 ### 3. 날짜 관련 함수
+
+[ BACK](#함수-function)
+
 ![func3](https://user-images.githubusercontent.com/60596128/73858700-2c9f3f80-487c-11ea-9e1e-1d51c6711470.png)
 
 + SYSDATE : 오늘 날짜 반환
@@ -323,6 +328,8 @@ FROM EMPLOYEE;
 ```
 
 ### 4. 형 변환 함수
+
+[ BACK](#함수-function)
 
  + TO_CHAR(DATE|NUMBER [, FORMAT]) : CHARACTER  (날짜/숫자형 데이터 -> 문자형 데이터)
  
@@ -427,6 +434,8 @@ FROM DUAL;
 
 ### 5. NULL 처리 함수
 
+[ BACK](#함수-function)
+
 + NVL (P1: 컬럼명, P2 :컬럼 값이 NULL일 때 바꿀 값) : NUMBER | CHARACTER
 
  ```SQL
@@ -514,6 +523,8 @@ FROM EMPLOYEE;
 ```
 
 # 그룹 함수 (GROUP FUNCTION)
+
+[ BACK](#함수-function)
 
 + < 여러 행을 넣으면 한개의 결과 반환 >
 

@@ -7,7 +7,13 @@
   + [JOIN](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/4_Join.md#join)
   + [SUBQUERY](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/5_%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC.md#subquery%EC%84%9C%EB%B8%8C-%EC%BF%BC%EB%A6%AC)
 
-  
+--------------------------------------------------
+
++ [ORDER BY](#ORDER-BY)
++ [GROUP BY](#GROUP-BY)
+
+### SELECT 문 실행순서 
+ 
 |순서| SELECT 문 |--|
 |-----|--------------------| --|
 | 5 | SELECT |5.조회를 하고|

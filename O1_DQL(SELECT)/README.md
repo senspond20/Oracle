@@ -19,7 +19,7 @@
 ※ JDBC - Result Set 가지고 사용하는것이 있다. 기억!
 
 
-## SELECT 작성법
+## SELECT문 작성법
 [  BACK](#dqlselect)
 
 + (필수적으로 있어야 하는 구문 -> SELECT, FROM)

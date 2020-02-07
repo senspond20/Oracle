@@ -3,15 +3,31 @@
 ## ORDER BY 
 + SELECT한 컬럼에 대해 정렬을 할 때 작성하는 구문
 + SELECT 구문의 가장 마지막에 작성하며 실행 순서 역시 가장 마지막에 수행됨
++ ORDER BY : SELCT한 컬럼을 가지고 정렬할 때 사용
 
 <표현식>
 + ORDER BY 컬럼명 | 컬럼 별칭 | 컬럼나열순번 [ASC] | DESC
 
-```SQL
-SELECT 컬럼 명[, 컬럼명,...]
-FROM 테이블 명
-WHERE 조건식
-ORDER BY 컬럼명 | 별칭 | 컬럼 순번 정렬방식 [NULLS FIRST | LAST ];
++ 예시)
+```sql
+
+SELECT EMP_ID, EMP_NAME, SALARY 급여, DEPT_CODE
+FROM EMPLOYEE;
+
+1. ORDER BY EMP_NAME; -- 이름을 오름차순
+
+2. ORDER BY EMP_NAME ASC; -- 이름을 오름차순
+
+3. ORDER BY EMP_NAME DESC; -- 이름을 내림차순
+
+4. ORDER BY DEPT_CODE NULLS FIRST; -- DEPT_CODE 를 NULL을 제일 먼저두고 정렬해라
+
+5. ORDER BY 2; -- 컬럼에 대한 순번으로 
+(왠만하면 쓰지 않는것이 좋다. => 조회하고자 하는 SELECT행 숫자가 달라지면 결과값이 달라지기때문)
+
+6. ORDER BY 급여; -- 급여(별칭)에 대해서 오름차순으로
+
+7. ORDER BY 급여 DESC; --급여(별칭)에 대해서 내림차순으로
 ```
 
 ## GROUP BY
@@ -53,19 +69,7 @@ GROUP BY DEPT_CODE;
 -- GROUPBY_HAVING
 
 
--- ORDER BY : SELCT한 컬럼을 가지고 정렬할 때 사용
--- ORDER BY 컬럼명 | 컬럼 별칭 | 컬럼나열순번 [ASC] | DESC
 
-SELECT EMP_ID, EMP_NAME, SALARY 급여, DEPT_CODE
-FROM EMPLOYEE;
---ORDER BY EMP_NAME; -- 이름을 오름차순
---ORDER BY EMP_NAME ASC; -- 이름을 오름차순
---ORDER BY EMP_NAME DESC; -- 이름을 내림차순
---ORDER BY DEPT_CODE NULLS FIRST; -- DEPT_CODE 를 NULL을 제일 먼저두고 정렬해라
---ORDER BY 2; -- 컬럼에 대한 순번으로 
--- (왠만하면 쓰지 않는것이 좋다. => 조회하고자 하는 SELECT행 숫자가 달라지면 결과값이 달라지기때문)
---ORDER BY 급여; -- 급여(별칭)에 대해서 오름차순으로
---ORDER BY 급여 DESC; --급여(별칭)에 대해서 내림차순으로
 
 /* 
     5 : SELECT

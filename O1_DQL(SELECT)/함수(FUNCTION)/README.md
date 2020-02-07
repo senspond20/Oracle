@@ -1,10 +1,16 @@
 # 함수 (FUNCTION)
 
 + ## [단일 행 함수 (SINGLE ROW FUNCTION)](#단일행-함수single-row-function)
-       +  N개의 값을 넣어서 N개의 결과 리턴
-
+       +  < N개의 값을 넣어서 N개의 결과 리턴 >
+       +  [1. 문자 관련 함수]
+       +  [2. 숫자 관련 함수]
+       +  [3. 날짜 관련 함수]
+       +  [4. 형 변환 함수]
+       +  [5. Null 처리 함수]
+       +  [6. 선택 함수]
+       
 + ## [그룹 함수(GROUP FUNCTION)](#그룹-함수-group-function)
-       +   S개의 값을 넣어서 한개의 결과 리턴
+       +  < S개의 값을 넣어서 한개의 결과 리턴 >
        
 ---------------------------------------------------------
 
@@ -75,9 +81,6 @@ FROM EMPLOYEE;
 ## 1. 문자 관련 함수
 
 ![func1](https://user-images.githubusercontent.com/60596128/73858625-0b3e5380-487c-11ea-9601-e8c16e9cf422.png)
-
-
-# 1. 문자 관련 함수
 
 ▶ LENGTH/ LENTHB
 + LENGTH(컬럼명 | '문자열' ) : 글자 수 반환

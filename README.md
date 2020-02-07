@@ -12,7 +12,7 @@
 
 
 
-+ [O1_DQL(SELECT)](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)#dclselect)
++ [O1_DML/DQL(SELECT)](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)#dclselect)
   + [함수(FUNCTION)](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)/함수(FUNCTION))
 
 + 02
@@ -21,7 +21,7 @@
 
 DQL (질의어) 
  - SELECT : 테이블에 저장된 데이터를 조회하는 데 사용되는 가장 기본적인 문법이고 가장 많이 사용됨
-
+ - DML 에 속하기도 한다.
 
 DML (데이터 조작어) 
  데이터를 삽입, 변경 삭제 즉 조작하는 역할을 하는 명령어 INSERT, UPDATE, DELETE

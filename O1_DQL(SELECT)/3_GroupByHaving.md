@@ -11,10 +11,12 @@
 
 + [ORDER BY](#ORDER-BY)
 + [GROUP BY](#GROUP-BY)
-+ [집계함수(ROOLUP/CUBE)]()
+    + [HAVING](#HAVING)
+
++ [집계함수(ROOLUP/CUBE)](#집계함수rollup-cube)
 + [GROUPING 함수](#GROUPING-함수)
-+ [집합연산자]()
-+ [GROUPING SETS]()
++ [집합연산자](#집합-연산자)
++ [GROUPING SETS](#GROUPING-SETS)
 
 ### SELECT 문 실행순서 
  
@@ -113,7 +115,7 @@ ORDER BY JOB_CODE;
 
 -- EMPLOYEE 테이블에서 성별과 성별 별 급여 평균, 급여 합계, 인원 수 조회하고 인원 수로 내림차순 정렬
 SELECT DECODE(SUBSTR(EMP_NO,8,1),1,'남','여') 성별,
-       FLOOR(AVG(SALARY)) "급여 평균", 
+    FLOOR(AVG(SALARY)) "급여 평균", 
         SUM(SALARY) "급여 합계", 
         COUNT(*) AS 인원수
 FROM EMPLOYEE
@@ -128,31 +130,33 @@ SELECT DEPT_CODE, JOB_CODE, SUM(SALARY)
 FROM EMPLOYEE
 GROUP BY DEPT_CODE,JOB_CODE; -- 여러컬럼을 함께 묶을 수 있음
 ```
+[◀back](#GroupByHaving)
 
++ ## HAVING
+    + 그룹함수로 구해 올 그룹에 대해 조건을 설정할 때 사용
+    + SELECT -> WHERE , GROUP BY -> HAVING
 
-+ HAVING : 그룹함수로 구해 올 그룹에 대해 조건을 설정할 때 사용
+    ```sql
+    -- 부서코드와 급여 300만원 이상인 직원의 그룹별 평균(반올림) 급여 조회
+    SELECT DEPT_CODE, ROUND(AVG(SALARY))
+    FROM EMPLOYEE
+    WHERE SALARY >= 3000000
+    GROUP BY DEPT_CODE;
 
-```sql
--- 부서코드와 급여 300만원 이상인 직원의 그룹별 평균(반올림) 급여 조회
-SELECT DEPT_CODE, ROUND(AVG(SALARY))
-FROM EMPLOYEE
-WHERE SALARY >= 3000000
-GROUP BY DEPT_CODE;
+    -- 부서코드와 급여 평균이 300만원 이상인 그룹 조회
+    SELECT DEPT_CODE, ROUND(AVG(SALARY))
+    FROM EMPLOYEE
+    GROUP BY DEPT_CODE
+    HAVING ROUND(AVG(SALARY)) >=3000000;
 
--- 부서코드와 급여 평균이 300만원 이상인 그룹 조회
-SELECT DEPT_CODE, ROUND(AVG(SALARY))
-FROM EMPLOYEE
-GROUP BY DEPT_CODE
-HAVING ROUND(AVG(SALARY)) >=3000000;
-
--- 부서 별 그룹의 급여 합계 중 9백만원을 초과하는 부서 코드와 급여 합계(부서 코드 순으로 정렬)
-SELECT DEPT_CODE, SUM(SALARY)
-FROM EMPLOYEE
-GROUP BY DEPT_CODE
-HAVING SUM(SALARY) >= 9000000
-ORDER BY DEPT_CODE ASC;
-```
-
+    -- 부서 별 그룹의 급여 합계 중 9백만원을 초과하는 부서 코드와 급여 합계(부서 코드 순으로 정렬)
+    SELECT DEPT_CODE, SUM(SALARY)
+    FROM EMPLOYEE
+    GROUP BY DEPT_CODE
+    HAVING SUM(SALARY) >= 9000000
+    ORDER BY DEPT_CODE ASC;
+    ```
+[◀back](#GroupByHaving)
 + ## 집계함수(ROLLUP, CUBE) 
     + 그룹 별 산출한 결과 값의 집계 계산
 
@@ -225,6 +229,7 @@ ORDER BY DEPT_CODE ASC;
     GROUP BY CUBE(DEPT_CODE, JOB_CODE)
     ORDER BY DEPT_CODE;
     ```
+[◀back](#GroupByHaving)   
 + ## GROUPING 함수
     + ROLLUP 이나 CUBE에 의한 산출물이 인자로 전달받은 컬럼의 산출물이면 0 반환, 아니면 1반환
     ```sql
@@ -236,7 +241,8 @@ ORDER BY DEPT_CODE ASC;
     ORDER BY DEPT_CODE;
     ```
 
-+ ## 집합 연산자
+[◀back](#GroupByHaving)
++ ## **집합 연산자**
 
     + 여러개의 SELECT 결과물을 하나의 쿼리로 만드는 연산자
 
@@ -276,6 +282,7 @@ ORDER BY DEPT_CODE ASC;
 
     + **UNION ALL** : OR + AND(합집합 + 교집합), 합집합 + 교집한 -> 중복된 부분이 두번 포함
     
+
     ```sql
     SELECT EMP_ID, EMP_NAME, DEPT_CODE, SALARY
     FROM EMPLOYEE
@@ -287,6 +294,7 @@ ORDER BY DEPT_CODE ASC;
     ```
 
     + **INTERESECT** : 교집합, AND
+
 
     ```sql
     SELECT EMP_ID, EMP_NAME, DEPT_CODE, SALARY
@@ -304,6 +312,7 @@ ORDER BY DEPT_CODE ASC;
 
     + **MINUS** : 차집합
 
+
     ```sql
     SELECT EMP_ID, EMP_NAME, DEPT_CODE, SALARY
     FROM EMPLOYEE
@@ -317,8 +326,9 @@ ORDER BY DEPT_CODE ASC;
     FROM EMPLOYEE
     WHERE DEPT_CODE = 'D5' AND SALARY <= 3000000;
     ```
+[◀back](#GroupByHaving)
 
-+ ## GROUPING SETS : 
++ ## GROUPING SETS
     + 그룹별로 처리된 여러 개의 SELECT 문을 하나로 합칠 때 사용
 
     ```sql

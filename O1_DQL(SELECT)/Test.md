@@ -16,7 +16,7 @@
       + [5.NULL 처리 함수](#5-NULL-처리-함수)
       + [6.선택 함수](#6-선택함수) 
       
-    +[그룹 함수(GROUP FUNCTION)](#그룹-함수-group-function)
+    + [그룹 함수(GROUP FUNCTION)](#그룹-함수-group-function)
         
         
   + [**GROUP BY_HAVING**](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/3_GroupByHaving.md#groupbyhaving)

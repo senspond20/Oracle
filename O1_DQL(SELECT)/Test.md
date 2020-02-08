@@ -6,6 +6,11 @@
 --------------------------------------
   + [**SELECT BASIC**]
   + [**WHERE절/연산자**](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/1_연산자.md#연산자)
+      + [WHERE절]
+      + [연산자]
+        + [논리 연산자]
+        + [비교 연산자]
+         
   + [**함수(FUNCTION)**](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)/%ED%95%A8%EC%88%98(FUNCTION)#%ED%95%A8%EC%88%98-function))
      + [단일 행 함수 (SINGLE ROW FUNCTION)](#단일행-함수single-row-function)
        

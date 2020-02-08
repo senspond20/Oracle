@@ -98,7 +98,7 @@ FROM EMPLOYEE;
 
 ![func1](https://user-images.githubusercontent.com/60596128/73858625-0b3e5380-487c-11ea-9601-e8c16e9cf422.png)
 
-▶ LENGTH/ LENTHB
+**▶ LENGTH/ LENTHB**
 + LENGTH(컬럼명 | '문자열' ) : 글자 수 반환
 + LENGTHB(컬럼명 | '문자열' ) : 글자의 바이트 사이즈 반환
 
@@ -117,7 +117,7 @@ SELECT EMAIL, LENGTH(EMAIL), LENGTHB(EMAIL)
 FROM EMPLOYEE;
 ```
 
-+ INSTR : 해당 문자열의 위치 ( ZERO 인덱스 기반이 아니라 1, 2,3,4 ..)
++ **INSTR** : 해당 문자열의 위치 ( ZERO 인덱스 기반이 아니라 1, 2,3,4 ..)
 ```SQL
 SELECT INSTR('AABAACAABBABA', 'B') FROM DUAL;
 SELECT INSTR('AABAACAABBAA', 'Z') FROM DUAL; -- 찾는것이 없으면 0
@@ -128,10 +128,8 @@ SELECT INSTR('AABAACAABBAA','C',-1) FROM DUAL; -- -1번째(끝) 부터 (<-)로 �
 SELECT INSTR('AABAACAABBAA','B',1,2) FROM DUAL; -- 1번쨰부터 읽기 시작해서 두 번째로 나오는 B의 위치 반환
 SELECT INSTR('AABAACAABBAA','B',-1,2) FROM DUAL; -- 맨끝부터 읽기 시작해서 두번째로 나오는 B의 위치 반환
 SELECT INSTR('AABAACAABBAA','C',1,2) FROM DUAL; -- 첫번째부터 읽기 시작해서 두 번째로 나오는 C의 위치 반환
-```
 
-+ EMPLOYEE 테이블에서 이메일의 @ 위치 반환
-```SQL
+-- EMPLOYEE 테이블에서 이메일의 @ 위치 반환
 SELECT EMAIL, INSTR(EMAIL, '@', 1, 1)
 FROM EMPLOYEE;
 
@@ -139,7 +137,7 @@ SELECT EMAIL, INSTR(EMAIL, '@')
 FROM EMPLOYEE;
 ```
 
-+ LPAD / RPAD
++ **LPAD / RPAD**
 ```SQL
 SELECT LPAD(EMAIL, 20) -- 총 20칸을 채워 (빈공간 왼쪽에다가 붙는다.)
 FROM EMPLOYEE;
@@ -153,7 +151,7 @@ FROM EMPLOYEE;
 SELECT RPAD(EMAIL,20, '#')
 FROM EMPLOYEE;
 ```
-+ LTRIM/RTRIM/TRIM : 주어진 컬럼이나 문자열의 왼쪽 또는 오른쪽 또는 앞/뒤/양쪽에서 지정한 문자를 제거한 나머지 반환
++ **LTRIM/RTRIM/TRIM** : 주어진 컬럼이나 문자열의 왼쪽 또는 오른쪽 또는 앞/뒤/양쪽에서 지정한 문자를 제거한 나머지 반환
 ```SQL
 SELECT LTRIM('  KH') FROM DUAL; -- 삭제할 문자열을 지정하지 않았을 경우 공백이 디폴트가 됨
 SELECT LTRIM('  KH', ' ') FROM DUAL; 
@@ -201,7 +199,7 @@ SELECT TRIM(BOTH 'Z' FROM 'ZZZ123456ZZZ') FROM DUAL; -- 양쪽
 
 ![func2](https://user-images.githubusercontent.com/60596128/73858671-1e512380-487c-11ea-80bd-6d0a18beda4d.png)
 
-+ ABS : 절대 값을 리턴해주는 함수
++ **ABS** : 절대 값을 리턴해주는 함수
 -- ABS(NUMBER) : NUMBER
 
 ```SQL
@@ -211,7 +209,7 @@ SELECT ABS(10) FROM DUAL;  -- 10
 SELECT ABS(-10) FROM DUAL; -- 10
 ```
 
-+  MOD : 나머지값 리턴
++  **MOD** : 나머지값 리턴
 -- MOD(NUMBER,DIVISION) : NUMBER
 
 ```SQL
@@ -223,8 +221,7 @@ SELECT MOD(10.9,3) FROM DUAL; -- 1.9
 SELECT MOD(-10.9,3) FROM DUAL;-- -1.9
 ```
 
-+ ROUND <반올림>
--- ROUND(NUMBER) : NUMBER / ROUND(NUMBER, POSITION) : NUMBER
++ **ROUND** <반올림> -- ROUND(NUMBER) : NUMBER / ROUND(NUMBER, POSITION) : NUMBER
        
   + 여기서는 ZERO INDEX 기반. (POSITON 0 : 소수점 1번째)
 
@@ -240,7 +237,7 @@ SELECT ROUND(1234,4) FROM DUAL; -- -1234
 SELECT ROUND(-10.61) FROM DUAL; -- -11
 SELECT ROUND(-10,61) FROM DUAL; -- -10
 ```
-+ FLOOR < 내림 > 
++ **FLOOR** < 내림 > 
 -- FLOOR(NUMBER) : NUMBER 
 ```SQL
 SELECT FLOOR(123.456) FROM DUAL;
@@ -248,7 +245,7 @@ SELECT FLOOR(123.678) FROM DUAL;
 --SELECT FLOOR(123.434,2) FROM DUAL; -- 에러
 ```
 
-+ TRUNC < 버림(절삭) >
++ **TRUNC** < 버림(절삭) >
 -- TRUNC(NUMBER, POSITION) : NUMBER 
 
 ```SQL
@@ -260,7 +257,7 @@ SELECT TRUNC(123.456) FROM DUAL; -- 123
 SELECT TRUNC(123.456,1) FROM DUAL; --123.4
 SELECT TRUNC(123.456,2) FROM DUAL; --123.45
 ```
-+ CELL < 올림 >
++ **CELL** < 올림 >
 -- CEIL(NUMBER) : NUMBER
 
 ```SQL
@@ -274,7 +271,7 @@ SELECT CEIL(123.678) FROM DUAL;
 --00909. 00000 -  "invalid number of arguments"
 ```
 
-### 3. 날짜 관련 함수
+## 3. 날짜 관련 함수
 
 [ BACK](#함수-function)
 
@@ -340,7 +337,7 @@ SELECT EMP_NAME, EXTRACT(YEAR FROM HIRE_DATE) 입사년도,
 FROM EMPLOYEE;
 ```
 
-### 4. 형 변환 함수
+## 4. 형 변환 함수
 
 [ BACK](#함수-function)
 
@@ -445,7 +442,7 @@ FROM DUAL;
 -- RR : 두자리 년도가 50년 이상이면 이전세기, 50년 미만이면 현재세기
  ```
 
-### 5. NULL 처리 함수
+## 5. NULL 처리 함수
 
 [ BACK](#함수-function)
 
@@ -473,7 +470,7 @@ SELECT NULLIF(123,123) FROM DUAL; -- RESULT : (null)
 SELECT NULLIF(123,124) FROM DUAL; -- RESULT : 123
  ```
 
-### 6. 선택함수 
+## 6. 선택함수 
 
 -- 여러 가지 경우 선택 할 수 있는 기능 제공
 

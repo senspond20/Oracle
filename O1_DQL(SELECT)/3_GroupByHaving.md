@@ -241,7 +241,7 @@ SELECT EMP_ID, EMP_NAME
 FROM EMPLOYEE
 WHERE EMP_ID = 201;
 
-DEPT_CODE D4코드가 D5이거나 급여가 300만원을 초과하는 직원의 사번, 이름, 부서코드, 급여 조회
+--DEPT_CODE D4코드가 D5이거나 급여가 300만원을 초과하는 직원의 사번, 이름, 부서코드, 급여 조회
 SELECT EMP_ID, EMP_NAME, DEPT_CODE, SALARY
 FROM EMPLOYEE
 WHERE DEPT_CODE = 'D5'

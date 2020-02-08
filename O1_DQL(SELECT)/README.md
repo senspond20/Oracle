@@ -74,31 +74,31 @@ select * from employee where job_code = 'J1';
 
 + 직원 전부의 사번과 이름, 월급을 조회하는 구문
 
-```sql
-SELECT EMP_ID,EMP_NAME,SALARY 
-FROM EMPLOYEE;
-```
+    ```sql
+    SELECT EMP_ID,EMP_NAME,SALARY 
+    FROM EMPLOYEE;
+    ```
 + 직원 전부의 모든 정보를 조회하는 구문. 
-```sql
-SELECT * 
-FROM EMPLOYEE;
-// * 아스트로
-```
+    ```sql
+    SELECT * 
+    FROM EMPLOYEE;
+    // * 아스트로
+    ```
 
 + **컬럼 값에 대해 산술 연산한 결과 조회 가능**
-```sql
-SELECT EMP_NAME, SALARY * 12, (SALARY + (SALARY * BONUS)) * 12
-FROM EMPLOYEE;
-```
+    ```sql
+    SELECT EMP_NAME, SALARY * 12, (SALARY + (SALARY * BONUS)) * 12
+    FROM EMPLOYEE;
+    ```
 
-## 컬럼 별칭 사용법
+### ○ 컬럼 별칭 사용법
 [  BACK](#dqlselect)
 
 + 컬럼 명 AS 별칭
 + 컬럼 명 "별칭"
 + 컬럼 명 AS "별칭" 
 + 컬럼 명 별칭
-+ 별칭에 띄어쓰기, 특수문자, 숫자가 포함될 경우 무조건 "" 으로 묶어야 한다.
++ **별칭에 띄어쓰기, 특수문자, 숫자가 포함될 경우 무조건 "" 으로 묶어야 한다.**
 
 ex) EMPLOYEE 테이블에서 직원의 직원명(별칭 : 이름), 연봉(별칭 : 연봉(원)), 보너스를 추가한 연봉(별칭 : 총소득(원)) 조합
 
@@ -107,7 +107,7 @@ SELECT EMP_NAME 이름, SALARY * 12 "연봉(원)" , SALARY * (1+BONUS) * 12 AS "
 FROM EMPLOYEE;
 ```
 
-## 리터럴
+### ○ 리터럴
 
 + 임의로 정한 문자열을 SELECT 절에 사용하면 테이블에 존재하는 데이터처럼 사용 가능
 -- 문자나 날짜 리터널은 ' ' 기호 사용되며 모든 행에 반복 표시 됨
@@ -118,6 +118,64 @@ ex) EMPLOYEE 테이블에서 직원의 직원 번호, 사원 명, 급여, 단위
 SELECT EMP_ID "직원 번호", EMP_NAME "사원 명", SALARY "급여", '원' AS 단위
 FROM EMPLOYEE;
 ```
+
+##  DISTINCT 
+ + 컬럼에 포함된 중복 값을 한번씩만 표기하고자 할 때 사용
+ + **SELECT 절에 딱 한번만 쓸 수가 있음**
+
+```SQL
+-- EMPLOYEE 테이블에서 직원의 직급 코드 조회
+SELECT JOB_CODE FROM EMPLOYEE;
+
+-- EMPLOYEE 테이블에서 직원의 직급코드를 중복제거 하여 조회
+SELECT DISTINCT JOB_CODE FROM EMPLOYEE;
+
+-- EMPLOYEE 테이블에서 부서코드와 직급코드를 중복제거 하여 조회
+--SELECT DISTINCT DEPT_CODE, DISTINCT JOB_CODE
+--FROM EMPLOYEE;
+--에러가 난다.
+
+SELECT DISTINCT DEPT_CODE, JOB_CODE FROM EMPLOYEE;
+```
+
+## WHERE 절 
+ + SELECT 에 걸리는 조건문이 들어가는 절
+ + 조회할 테이블에서 조건이 맞는 값을 가진 행을 골라냄
+ + < 비교 연산자 >
+     + = 같냐, > 크냐, < 작냐, >= 크거냐 같냐, <= 작거냐 같냐
+    + != , ^= , <> 안 같냐
+
+ + 예시
+
+ ```SQL
+-- EMPLOYEE 테이블에서 부서코드가 'D9' 인 직원의 이름, 부서코드 조회
+SELECT EMP_NAME, DEPT_CODE
+FROM EMPLOYEE
+WHERE DEPT_CODE = 'D9';
+
+-- EMPLOYEE 테이블에서 급여가 4000000 이상인 직원의 이름, 급여 조회는
+SELECT EMP_NAME, SALARY
+FROM EMPLOYEE
+WHERE SALARY >= 4000000;
+
+-- EMPLOYEE 테이블에서 부서코드가 D9이 아닌 사원의 사번, 이름, 부서코드 조회
+SELECT EMP_ID, EMP_NAME, DEPT_CODE
+FROM EMPLOYEE
+--WHERE DEPT_CODE != 'D9';
+--WHERE DEPT_CODE ^= 'D9';
+WHERE DEPT_CODE <> 'D9';
+
+-- EMPLOYEE 테이블에서 퇴사 여부가 N인 직원을 조회하고
+-- 근무 여부를 재직중으로 표시하여 사번, 이름, 고용일, 근무 여부 조회
+SELECT EMP_ID, EMP_NAME, HIRE_DATE, '재직중' AS 근무여부
+FROM EMPLOYEE
+WHERE ENT_YN = 'N';
+```
+
+
+
+
+
 ------------------------------------------
 
 + [문서 맨위로](#dqlselect)

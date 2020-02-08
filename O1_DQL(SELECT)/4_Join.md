@@ -54,7 +54,7 @@
 
 + **FULL [OUTER] JOIN**
 : 두 테이블이 가진 모든 행을 결과에 포함시키려 할때
-    + **( FULL [OUTER] JOIN 은 오라클 전용문법으로는 불가능하고, ANSI 문법을 사용해야 한다.)**
+    + <u>( FULL [OUTER] JOIN 은 오라클 전용문법으로는 불가능하고, ANSI 문법을 사용해야 한다.)</u>
 
 
 + ### LEFT [OUTER] JOIN 

@@ -3,6 +3,7 @@
 
 ### [◀목차로 돌아가기](https://github.com/senspond20/Oracle)
 
+  + [연산자](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/1_연산자.md)
   + [함수(FUNCTION)](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)/%ED%95%A8%EC%88%98(FUNCTION)#%ED%95%A8%EC%88%98-function))
   + [GROUP BY_HAVING](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/3_GroupByHaving.md#groupbyhaving)
   + [JOIN](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/4_Join.md#join)
@@ -108,7 +109,7 @@ FROM EMPLOYEE;
 ```
 
 ### ○ 리터럴
-
+[  BACK](#dqlselect)
 + 임의로 정한 문자열을 SELECT 절에 사용하면 테이블에 존재하는 데이터처럼 사용 가능
 -- 문자나 날짜 리터널은 ' ' 기호 사용되며 모든 행에 반복 표시 됨
 
@@ -120,6 +121,7 @@ FROM EMPLOYEE;
 ```
 
 ##  DISTINCT 
+[  BACK](#dqlselect)
  + 컬럼에 포함된 중복 값을 한번씩만 표기하고자 할 때 사용
  + **SELECT 절에 딱 한번만 쓸 수가 있음**
 
@@ -139,6 +141,7 @@ SELECT DISTINCT DEPT_CODE, JOB_CODE FROM EMPLOYEE;
 ```
 
 ## WHERE 절 
+[  BACK](#dqlselect)
  + SELECT 에 걸리는 조건문이 들어가는 절
  + 조회할 테이블에서 조건이 맞는 값을 가진 행을 골라냄
  + < 비교 연산자 >
@@ -170,12 +173,7 @@ WHERE DEPT_CODE <> 'D9';
 SELECT EMP_ID, EMP_NAME, HIRE_DATE, '재직중' AS 근무여부
 FROM EMPLOYEE
 WHERE ENT_YN = 'N';
-```
-
-
-
-
-
+``
 ------------------------------------------
-
+```
 + [문서 맨위로](#dqlselect)

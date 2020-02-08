@@ -1,4 +1,4 @@
-### [◀목차로 돌아가기](https://github.com/senspond20/Oracle)
+### [◀목차로 돌아가기](https://github.com/senspond20/Oracle#목차)
 
 + [O1_DML/DQL(SELECT)](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)#dqlselect)
   + [연산자](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/1_연산자.md)

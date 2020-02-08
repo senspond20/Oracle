@@ -1,6 +1,3 @@
-
-# SUBQUERY(서브 쿼리)
-
 ### [◀목차로 돌아가기](https://github.com/senspond20/Oracle)
 
 + [O1_DML/DQL(SELECT)](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)#dclselect)
@@ -8,32 +5,34 @@
   + [함수(FUNCTION)](https://github.com/senspond20/Oracle/tree/master/O1_DQL(SELECT)/%ED%95%A8%EC%88%98(FUNCTION)#%ED%95%A8%EC%88%98-function))
   + [GROUP BY_HAVING](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/3_GroupByHaving.md#groupbyhaving)
   + [JOIN](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/4_Join.md#join)
-  + [SUBQUERY](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/5_%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC.md#subquery%EC%84%9C%EB%B8%8C-%EC%BF%BC%EB%A6%AC)
-+ 02
+  + [SUBQUERY](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/5_SUBQUERY.md#subquery서브-쿼리)
 
 -------------------------
-
+# SUBQUERY(서브 쿼리)
 
 + 하나의 SQL 문 안에 포함된 또 다른 SQL문
 + 메인쿼리(기존쿼리) 를 위해 보조 역할을 하는 쿼리문
 
+**>> 서브쿼리 맛보기**
 
-<정리할것 >
-```sql
--- 서브쿼리 맛보기
 -- 부서코드가 노옹철 사원과 같은 소속의 직원 명단 조회
+```sql
 -- 1) 노옹철 사원의 부서코드 조회
 SELECT DEPT_CODE
 FROM EMPLOYEE
-WHERE DEPT_CODE = 'D9';
+WHERE DEMP_NAME = '노옹철';
 
+-- 2) 서브쿼리 적용
 SELECT EMP_NAME
 FROM EMPLOYEE
 WHERE DEPT_CODE = (SELECT DEPT_CODE
                    FROM EMPLOYEE
                    WHERE EMP_NAME = '노옹철');
+```
 
 -- 전 직원의 평균급여보다 많은 급여를 받고 있는 직원의 사번, 이름, 직급코드, 급여 조회
+
+```sql
 -- 1) 전 직원의 평균 급여
 SELECT AVG(SALARY)
 FROM EMPLOYEE;
@@ -48,13 +47,15 @@ WHERE SALARY > 3047662.60869565217391304347826086956522;
 SELECT EMP_ID, EMP_NAME, JOB_CODE, SALARY
 FROM EMPLOYEE
 WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEE);
+```
 
--- 서브쿼리 유형
--- 단일 행 서브쿼리 : 서브쿼리의 조회 결과 값의 개수가 1개일 떄
--- 다중 행 서브쿼리 : 서브쿼리의 조회 결과 값의 개수가 여러 개일 때
--- 다중 열 서브쿼리 : 서브쿼리 SELECT 절에 나열된 항목 수가 여러 개일 때
--- 다중 행 다중 열 서브쿼리 : 조회 결과 행 수와 열 수가 여러 개일때
--- 서브쿼리의 유형에 따라 서브쿼리 앞에 붙는 연산자가 달라짐
+## 서브쿼리 유형
++ 단일 행 서브쿼리 : 서브쿼리의 조회 결과 값의 개수가 1개일 떄
++ 다중 행 서브쿼리 : 서브쿼리의 조회 결과 값의 개수가 여러 개일 때
++ 다중 열 서브쿼리 : 서브쿼리 SELECT 절에 나열된 항목 수가 여러 개일 때
++ 다중 행 다중 열 서브쿼리 : 조회 결과 행 수와 열 수가 여러 개일때
+
+**서브쿼리의 유형에 따라 서브쿼리 앞에 붙는 연산자가 달라짐**
 
 -- 1. 단일 행 서브쿼리 : 서브쿼리의 조회 결과 값의 개수가 1개일 떄
 -- 일반적으로 단일 행 서브쿼리 앞에는 일반 연산자 사용

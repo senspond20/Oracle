@@ -103,9 +103,9 @@
 ### **3. 다중 열 서브쿼리** 
 + 서브쿼리 SELECT 절에 나열된 항목 수가 여러 개일떄
 
-```HTML
-< 퇴사한 여직원과 같은 부서, 같은 직급에 해당하는 사원의 이름, 직급 코드, 부서코드, 입사일 조회 >
-```
+  ```HTML
+  < 퇴사한 여직원과 같은 부서, 같은 직급에 해당하는 사원의 이름, 직급 코드, 부서코드, 입사일 조회 >
+  ```
 
   ```SQL
   -- 1) 퇴사한 여직원
@@ -145,12 +145,97 @@
 
 ## 인라인 뷰(INLINE-VIEW)
 + FROM 절에 서브쿼리를 사용한것
++ 서브쿼리가 만든 결과(RESULT SET)를 테이블 대신 사용
 
-### WITH
+  **<전 직원 중 급여가 높은 상위 5명 순위, 이름, 급여 조회 >**
+  
+
+  ```sql
+  SELECT EMP_NAME, SALARY
+  FROM EMPLOYEE
+  ORDER BY SALARY DESC; -- 급여 내림차순 정렬.
+
+  ( 급여 높은 사람 5명 : 선동일, 송종기, 정중하 , 대북혼, 노옹철)
+  ```
+
+  + 틀린 해법
+
+    ```sql
+    SELECT ROWNUM, EMP_NAME, SALARY
+    FROM EMPLOYEE
+    WHERE ROWNUM <=5
+    ORDER BY SALARY DESC;
+    ```
+
+      + ROWNUM은 FROM절을 수행하면서 부여지기 때문에 top-N 분석 시 SELECT 절에 사용한 ROWNUM이 의미 없게 된다.
+
+      + RESULT :
+
+        |ROWNUM | EMP_NAME | SALARY
+        |-------|----------|--------
+        |1	|선동일|	8000000
+        |2	|송종기	|6000000
+        |3	|노옹철	|3700000
+        |5	|유재식|	3400000
+        |4	|송은희|	2800000
+ 
+  + 맞는 해법 <인라인 뷰 적용 >
+      ```SQL
+      SELECT ROWNUM, EMP_NAME, SALARY
+      FROM (SELECT * FROM EMPLOYEE ORDER BY SALARY DESC)
+      WHERE ROWNUM <= 5;
+      ```
+  
+    + FROM 절에 이미 정렬된 서브쿼리(인라인 뷰) 적용 시 ROWNUM이 top-N 분석에 사용가능
+
+    + RESULT : 
+
+      |ROWNUM | EMP_NAME | SALARY
+      |-------|----------|--------
+      |1	|선동일|	8000000
+      |2	|송종기	|6000000
+      |3	|정중하	|3900000
+      |4	|대북혼|3760000
+      |5	|노옹철|	3700000
+
+
+## WITH
 
   + 서브 쿼리에 이름을 붙여주고 인라인 뷰로 사용 시 서브쿼리의 이름으로 FROM 절에 기술 가능.
   + 같은 서브쿼리가 여러번 사용될 경우 중복 작성 줄임, 실행속도도 빨라짐
 
-  +  RANK() OVER / DENSE_RANK() OVER
-  +  RANK() OVER : 동일한 순위 이후의 등수를 동일한 인원 수 만큼 건너 뛰고 순위
-  + DENSE RANK() OVER : 중복되는 순위 이후의 등수를 바로 다음 등수로 처리
+    + WITH 미적용 SQL문 
+      ```SQL
+      SELECT ROWNUM, EMP_NAME,SALARY
+      FROM (SELECT EMP_ID, EMP_NAME, SALARY
+          FROM EMPLOYEE
+          ORDER BY SALARY DESC);
+      ````
+    + **WITH 적용 예시** (서브쿼리를 TOPN_SAL 로 이름 지정하고 FROM문에서 사용)
+      ```SQL
+      WITH TOPN_SAL AS(SELECT EMP_NAME, SALARY
+                      FROM EMPLOYEE
+                      ORDER BY SALARY DESC)
+      SELECT ROWNUM, EMP_NAME, SALARY
+      FROM TOPN_SAL;
+      ```
+
+
+
+## RANK() OVER / DENSE_RANK() OVER
+
+  + ### RANK() OVER 
+    + 동일한 순위 이후의 등수를 동일한 인원 수 만큼 건너 뛰고 순위
+
+      ```SQL
+      SELECT RANK() OVER(ORDER BY SALARY DESC) 순위, EMP_NAME, SALARY
+      FROM EMPLOYEE;
+      ```
+
+  + ### DENSE RANK() OVER 
+    +  중복되는 순위 이후의 등수를 바로 다음 등수로 처리
+
+        ```SQL
+        SELECT DENSE_RANK() OVER(ORDER BY SALARY DESC) 순위, EMP_NAME, SALARY
+        FROM EMPLOYEE;           
+        ```

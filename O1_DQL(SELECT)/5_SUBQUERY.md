@@ -26,60 +26,118 @@
 **< 서브쿼리 맛보기 >**
 
 -- 부서코드가 노옹철 사원과 같은 소속의 직원 명단 조회
-```sql
--- 1) 노옹철 사원의 부서코드 조회
-SELECT DEPT_CODE
-FROM EMPLOYEE
-WHERE DEMP_NAME = '노옹철';
+  ```sql
+  -- 1) 노옹철 사원의 부서코드 조회
+  SELECT DEPT_CODE
+  FROM EMPLOYEE
+  WHERE DEMP_NAME = '노옹철';
 
--- 2) 서브쿼리 적용
-SELECT EMP_NAME
-FROM EMPLOYEE
-WHERE DEPT_CODE = (SELECT DEPT_CODE
-                   FROM EMPLOYEE
-                   WHERE EMP_NAME = '노옹철');
-```
+  -- 2) 서브쿼리 적용
+  SELECT EMP_NAME
+  FROM EMPLOYEE
+  WHERE DEPT_CODE = (SELECT DEPT_CODE
+                    FROM EMPLOYEE
+                    WHERE EMP_NAME = '노옹철');
+  ```
 
 -- 전 직원의 평균급여보다 많은 급여를 받고 있는 직원의 사번, 이름, 직급코드, 급여 조회
-
-```sql
--- 1) 전 직원의 평균 급여
-SELECT AVG(SALARY)
-FROM EMPLOYEE;
-
--- 2) 급여가 3047662.60869565217391304347826086956522
---  원보다 많이 받고있는 직원의 사번,이름,급여코드, 급여 조회
-SELECT EMP_ID, EMP_NAME, JOB_CODE, SALARY
-FROM EMPLOYEE
-WHERE SALARY > 3047662.60869565217391304347826086956522;
-
--- 1) + 2) : 전 직원의 평균 급여보다 많은 급여를 받고 있는 직원의 사번, 이름, 직급코드, 급여 조회
-SELECT EMP_ID, EMP_NAME, JOB_CODE, SALARY
-FROM EMPLOYEE
-WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEE);
-```
-
-
 
 
 ### **1. 단일 행 서브쿼리** 
  + 서브쿼리의 조회 결과 값의 개수가 1개일 떄
-+ 일반적으로 단일 행 서브쿼리 앞에는 일반 연산자 사용
++ 일반적으로 단일 행 서브쿼리 앞에는 **일반 연산자 사용**
 + <, >, <=, >=, =, !=, <>, ^=
-    
+
+  ```sql
+  -- 1) 전 직원의 평균 급여
+  SELECT AVG(SALARY)  FROM EMPLOYEE;
+
+  -- 2) 서브쿼리 적용 
+  --  전 직원의 평균 급여보다 많은 급여를 받고 있는 직원의 사번, 이름, 직급코드, 급여 조회
+  SELECT EMP_ID, EMP_NAME, JOB_CODE, SALARY
+  FROM EMPLOYEE
+  WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEE);
+  ```
 
 ### **2. 다중 행 서브쿼리**
 + 서브쿼리의 조회 결과 값의 개수가 여러 개일때
 + **다중행 서브쿼리 앞에는 일반 비교 연산자 사용 불가**
-+  IN / NOT IN 
-+  ANY, < ANY : 
-+  ALL, < ALL 
-+ EXISTS/ NOT EXISTS : 값이 존재하는지/ 존재하지 않는지
++ **IN / NOT IN**  :  
+  + 여러 개의 결과 값 중에서 한개라도 일치하는 값이 있으면/ 없다면 
++ **ANY, < ANY** : 
+  + 여러 개의 결과 값 중에서 한개라도 큰 / 작은 값이 작은지
+  + 가장 작은 값보다 큰지 / 가장 큰 값보다 작은지 
++ **ALL, < ALL** : 
+  + 모든 값 보다 큰/ 작은 값이 있다면
+  + 가장 큰 값보다 큰지/ 가장 작은 값 보다 작은지
++ **EXISTS/ NOT EXISTS** : 
+  + 값이 존재하는지/ 존재하지 않는지 ==> TRUE /   FALSE 로 반환
 
+  ```SQL
+  --차장 직급의 급여의 가장 큰 값보다 많이 받는 과장 직급의 직원 조회
+  -- 사번, 이름, 직급, 급여 조회
+
+  -- 1) 과장 직급의 사번, 이름, 직급, 급여
+  SELECT EMP_ID, EMP_NAME, JOB_NAME, SALARY
+  FROM EMPLOYEE
+      JOIN JOB USING(JOB_CODE)
+  WHERE JOB_NAME = '과장';
+  
+  -- 2) 차장 직급의 급여   
+  SELECT SALARY
+  FROM EMPLOYEE
+      JOIN JOB USING(JOB_CODE)
+  WHERE JOB_NAME = '차장';   
+
+  --3) 1+2)
+  SELECT EMP_ID, EMP_NAME, JOB_NAME, SALARY
+  FROM EMPLOYEE
+      JOIN JOB USING(JOB_CODE)
+  WHERE JOB_NAME = '과장' 
+      AND SALARY > ALL(SELECT SALARY
+                      FROM EMPLOYEE
+                          JOIN JOB USING(JOB_CODE)
+                      WHERE JOB_NAME = '차장');
+  ```
 
 ### **3. 다중 열 서브쿼리** 
-+ 서브쿼리 SELECT 절에 나열된 항목 수가 여러 개일때
++ 서브쿼리 SELECT 절에 나열된 항목 수가 여러 개일떄
 
+```HTML
+< 퇴사한 여직원과 같은 부서, 같은 직급에 해당하는 사원의 이름, 직급 코드, 부서코드, 입사일 조회 >
+```
+
+  ```SQL
+  -- 1) 퇴사한 여직원
+  SELECT EMP_NAME, JOB_CODE, DEPT_CODE, HIRE_DATE
+  FROM EMPLOYEE
+  WHERE ENT_YN = 'Y'
+      AND SUBSTR(EMP_NO,8,1) = 2;
+
+  -- 2) 퇴사한 여직원과 같은 부서, 같은 직급 (다중열이 아닌 방식)
+  SELECT EMP_NAME, JOB_CODE, DEPT_CODE, HIRE_DATE
+  FROM EMPLOYEE
+  WHERE DEPT_CODE = (SELECT DEPT_CODE
+                    FROM EMPLOYEE
+                    WHERE SUBSTR(EMP_NO, 8, 1) = 2 AND ENT_YN = 'Y') -- 같은 부서
+      AND JOB_CODE = (SELECT JOB_CODE
+                      FROM EMPLOYEE
+                      WHERE SUBSTR(EMP_NO, 8,1) = 2 AND ENT_YN = 'Y')
+      AND EMP_NAME != (SELECT EMP_NAME
+                      FROM EMPLOYEE
+                      WHERE SUBSTR(EMP_NO, 8,1) = 2 AND ENT_YN = 'Y');
+
+  -- 3) 다중열을 적용하여 해보기
+  SELECT EMP_NAME, JOB_CODE, DEPT_CODE, HIRE_DATE
+  FROM   EMPLOYEE
+  WHERE (DEPT_CODE, JOB_CODE) IN (SELECT DEPT_CODE, JOB_CODE
+                                  FROM   EMPLOYEE
+                                  WHERE  SUBSTR(EMP_NO, 8, 1) = 2 AND ENT_YN = 'Y')
+                                  
+                  AND EMP_NAME != (SELECT EMP_NAME
+                FROM EMPLOYEE
+                WHERE SUBSTR(EMP_NO, 8,1) = 2 AND ENT_YN = 'Y');
+  ```
 ### **4. 다중 행 다중 열 서브쿼리**
 + 조회 결과 행 수와 열 수가 여러개 일때
 

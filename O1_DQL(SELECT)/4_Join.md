@@ -143,7 +143,19 @@
 + ## 비등가 조인(NON EQUAL JOIN)
     + '='(등호)를 사용하지 않는 조인문
     + 지정한 컬럼 값이 일치하는 경우가 아닌 값의 범위에 포함되는 행들을 연결하는 방식
+    ```SQL
+    -- 잘못된 예 --
+    SELECT EMP_NAME, SALARY, SAL_LEVEL
+    FROM EMPLOYEE
+    JOIN SAL_GRADE ON (SALARY BETWEEN MIN_SAL AND MAX_SAL);
+    --  "column ambiguously defined" 컬럼이 모호하다
+    -- SAL_LEVEL 이라는것이 EMPLOYEE에도 있고 SAL_GRADE에도 있다.
 
+    -- 올바른 예 --
+    SELECT EMP_NAME, SALARY, EMPLOYEE.SAL_LEVEL
+    FROM EMPLOYEE
+    JOIN SAL_GRADE ON (SALARY BETWEEN MIN_SAL AND MAX_SAL);
+    ```
 + ## SELF JOIN
     + 두개 이상의 서로 다른 테이블을 연결하는 것이 아닌 **같은 테이블을 조인하는것**  
    

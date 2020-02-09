@@ -5,8 +5,7 @@
 # DQL(SELECT)
 --------------------------------------
   + [**SELECT BASIC**]
-  + [**WHERE절/연산자**](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/1_연산자.md#연산자)
-      + [WHERE절]
+  + [**연산자**](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/1_연산자.md#연산자)
       + [연산자]
         + [논리 연산자]
         + [비교 연산자]

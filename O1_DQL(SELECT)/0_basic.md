@@ -4,7 +4,8 @@
      + SELECT문 예시
      + 컬럼 별칭 사용법
      + 리터럴
-  + DISTINCT 
+     + DISTINCT 
+  + WHERE 절 
 --------------------------------------
 
 ## Result Set
@@ -21,7 +22,7 @@
 
 ## SELECT문 작성법
 
-+ (필수적으로 있어야 하는 구문 -> SELECT, FROM)
++ (**필수적으로 있어야 하는 구문 -> SELECT, FROM**)
 
     + SELECT 컬럼 명 [, 컬럼명, ...]
 
@@ -102,7 +103,7 @@ SELECT EMP_ID "직원 번호", EMP_NAME "사원 명", SALARY "급여", '원' AS 
 FROM EMPLOYEE;
 ```
 
-##  DISTINCT 
+### ○ DISTINCT 
  + 컬럼에 포함된 중복 값을 한번씩만 표기하고자 할 때 사용
  + **SELECT 절에 딱 한번만 쓸 수가 있음**
 
@@ -120,3 +121,38 @@ SELECT DISTINCT JOB_CODE FROM EMPLOYEE;
 
 SELECT DISTINCT DEPT_CODE, JOB_CODE FROM EMPLOYEE;
 ```
+
+## WHERE 절 
+ + SELECT 에 걸리는 조건문이 들어가는 절
+ + 조회할 테이블에서 조건이 맞는 값을 가진 행을 골라냄
+ + < 비교 연산자 >
+     + = 같냐, > 크냐, < 작냐, >= 크거냐 같냐, <= 작거냐 같냐
+    + != , ^= , <> 안 같냐
+
+ + 예시
+
+ ```SQL
+-- EMPLOYEE 테이블에서 부서코드가 'D9' 인 직원의 이름, 부서코드 조회
+SELECT EMP_NAME, DEPT_CODE
+FROM EMPLOYEE
+WHERE DEPT_CODE = 'D9';
+
+-- EMPLOYEE 테이블에서 급여가 4000000 이상인 직원의 이름, 급여 조회는
+SELECT EMP_NAME, SALARY
+FROM EMPLOYEE
+WHERE SALARY >= 4000000;
+
+-- EMPLOYEE 테이블에서 부서코드가 D9이 아닌 사원의 사번, 이름, 부서코드 조회
+SELECT EMP_ID, EMP_NAME, DEPT_CODE
+FROM EMPLOYEE
+--WHERE DEPT_CODE != 'D9';
+--WHERE DEPT_CODE ^= 'D9';
+WHERE DEPT_CODE <> 'D9';
+
+-- EMPLOYEE 테이블에서 퇴사 여부가 N인 직원을 조회하고
+-- 근무 여부를 재직중으로 표시하여 사번, 이름, 고용일, 근무 여부 조회
+SELECT EMP_ID, EMP_NAME, HIRE_DATE, '재직중' AS 근무여부
+FROM EMPLOYEE
+WHERE ENT_YN = 'N';
+``
+------------------------------------------

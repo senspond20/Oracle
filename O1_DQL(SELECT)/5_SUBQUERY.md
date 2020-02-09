@@ -83,13 +83,23 @@
       JOIN JOB USING(JOB_CODE)
   WHERE JOB_NAME = '과장';
   
+  207	하이유	과장	2200000
+  208	김해술	과장	2500000
+  215	대북혼	과장	3760000
+
   -- 2) 차장 직급의 급여   
   SELECT SALARY
   FROM EMPLOYEE
       JOIN JOB USING(JOB_CODE)
   WHERE JOB_NAME = '차장';   
+  
+  2800000
+  1550000
+  2490000
+  2480000
 
-  --3) 1+2)
+  --3) 1+2) 다중행 서브쿼리 ALL 연산자 사용
+  -- 차장중 가장 높은 급여(2800000) 보다 많이 받는 과장 -> 대북혼
   SELECT EMP_ID, EMP_NAME, JOB_NAME, SALARY
   FROM EMPLOYEE
       JOIN JOB USING(JOB_CODE)
@@ -98,6 +108,9 @@
                       FROM EMPLOYEE
                           JOIN JOB USING(JOB_CODE)
                       WHERE JOB_NAME = '차장');
+
+  215	대북혼	과장	3760000
+
   ```
 
 ### **3. 다중 열 서브쿼리** 

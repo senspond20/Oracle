@@ -1,10 +1,13 @@
 # Oracle Study
+## Intro
+  
+   + Oracle 을 공부한 내용을 정리하는 레파지토리입니다.
+------------------------------------------
 
+![오라클](https://github.com/senspond20/image/blob/master/oracle.png)
 ## ▶목차
 
-+ [연습문제](https://github.com/senspond20/Oracle/tree/master/연습문제)
-
--------------------------------------------
++ [< 연습문제 풀이 > ](https://github.com/senspond20/Oracle/tree/master/연습문제)
 
 + 데이터베이스 개요
 
@@ -19,9 +22,12 @@
   + [JOIN](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/4_Join.md#join)
   + [SUBQUERY](https://github.com/senspond20/Oracle/blob/master/O1_DQL(SELECT)/5_SUBQUERY.md#subquery서브-쿼리)
 
-+ ## 02
-+ ## 03
-+ ## 04
++ ## 02_DDL(CREATE)
++ ## 03_DML(INSERT,UPDATE,DELETE)
++ ## 04_DDL(ALTER,DROP)
++ ## 05_OBJECT(VIEW,SEQUENCE,SYNONYM)
++ ## 06_PL_SQL
++ ## 07_DB모델링
 
 --------------------------------
 

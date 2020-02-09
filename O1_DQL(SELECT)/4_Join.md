@@ -33,8 +33,8 @@
 
 
 + ## ANSI 표준 구문
-    + 연결에 사용하려는 컬럼 명이 같은 경우 USING() 사용,
-    + 다른 경우 ON() 사용
+    + 연결에 사용하려는 컬럼 명이 같은 경우 **USING()** 사용,
+    + 다른 경우 **ON()** 사용
     ```SQL
     SELECT EMP_ID, EMP_NAME, JOB_CODE, JOB_NAME
     FROM EMPLOYEE
@@ -146,6 +146,20 @@
 
 + ## SELF JOIN
     + 두개 이상의 서로 다른 테이블을 연결하는 것이 아닌 **같은 테이블을 조인하는것**  
+   
+    ```SQL
+    -- 오라클 구문
+    SELECT E.EMP_ID, E.EMP_NAME 사원이름, 
+            E.DEPT_CODE, E.MANAGER_ID, M.EMP_NAME 관리자이름
+    FROM EMPLOYEE E, EMPLOYEE M
+    WHERE M.EMP_ID = E.MANAGER_ID;
+    
+    -- ANSI 구문
+    SELECT E.EMP_ID, E.EMP_NAME 사원이름,
+        E.DEPT_CODE, E.MANAGER_ID, M.EMP_NAME 관리자이름
+    FROM EMPLOYEE E
+        JOIN EMPLOYEE M ON(E.MANAGER_ID = M.EMP_ID);
+    ```
 
 + ## 다중 JOIN 
     + N 개의 테이블을 조회할 때 사용 ( N >= 1)

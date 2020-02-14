@@ -1,6 +1,6 @@
 # DDR(ALTER,DROP)
 
-### ALTER
+### **ALTER**
 + EX)
     ```sql
     CREATE TABLE USER_FOREIGNKEY4(

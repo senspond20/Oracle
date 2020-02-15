@@ -25,24 +25,24 @@
 
 + (필수적으로 있어야 하는 구문 -> SELECT, FROM)
 
-    + SELECT 컬럼 명 [, 컬럼명, ...]
+    + **SELECT** 컬럼 명 [, 컬럼명, ...]
 
-    + FROM 테이블 명
+    + **FROM** 테이블 명
 
-    + WHERE 조건식;
+    + **WHERE** 조건식;
 
-```sql
-SELECT * FROM EMPLOYEE; -- * ASTRO 전체를 의미
+    ```sql
+    SELECT * FROM EMPLOYEE; -- * ASTRO 전체를 의미
 
-select * from employee;
-select * from employee where job_code = 'j1';
-select * from employee where job_code = 'J1';
+    select * from employee;
+    select * from employee where job_code = 'j1';
+    select * from employee where job_code = 'J1';
 
--- 자바에서는 대소문자를 가리지만,
--- DB에서는 명령어는 대소문자를 안가리지만, 
--- 안에 들어가는 데이터 자체는 대소문자를 가린다.
--- DB에서는 무조건 싱글 코테이션 ' '
-```
+    -- 자바에서는 대소문자를 가리지만,
+    -- DB에서는 명령어는 대소문자를 안가리지만, 
+    -- 안에 들어가는 데이터 자체는 대소문자를 가린다.
+    -- DB에서는 무조건 싱글 코테이션 ' '
+    ```
 
 + SELECT
     + 조회하고자 하는 컬럼명 기술

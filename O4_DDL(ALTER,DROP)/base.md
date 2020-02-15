@@ -1,6 +1,11 @@
 # DDR(ALTER,DROP)
 
 ### **ALTER**
+
++ ALTER - 테이블에 정의된 내용을 수정할 때 사용하는 데이터 정의어
++ ALTER : 객체 수정 구문
++ 컬럼 추가, 삭제, 수정
+
 + EX)
     ```sql
     CREATE TABLE USER_FOREIGNKEY4(
@@ -20,3 +25,11 @@
     ALTER TABLE USER_FOREIGNKEY4 MODIFY USER_PWD NOT NULL;
     -- NOT NULL은 MODIFY 키워ㅡ 사용
     ```
+
++ 컬럼 추가
+
++ 컬럼 수정
+
++ 컬럼 삭제
+
++ 제약조건이 설정되어 있는 컬럼 삭제

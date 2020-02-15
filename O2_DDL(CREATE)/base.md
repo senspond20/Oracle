@@ -1,10 +1,10 @@
 
 # DDL(Data Definition Language)
 
-### DDL
+### **DDL**
  + **데이터 정의 언어**로 객체(OBJECT)를 만들고(**CREATE**), 수정하고(**ALTER**), 삭제(**DROP**)하는 구문을 말함
 
-### CREATE
+### **CREATE**
 + 
     + 테이블이나 인덱스, 뷰 등 데이터베이스 객체를 생성하는 구문
     + CREATE TABLE 테이블명(컬럼명 자료형(크기), 
@@ -44,12 +44,15 @@
     COMMENT ON COLUMN MEMBER.MEMBER_NAME IS '회원이름';
     ```
 
-+ 제약조건(CONSTRAINTS)
++ ### **제약조건**(CONSTRAINTS)
     + 테이블 작성 시 각 컬럼에 기록될 데이터에 대해 제약조건을 설정 할 수 있는데 이는 **데이터 무결성 보장**을 주 목적으로 함
+    + + 데이터 무결성이란 ? 데이터의 **정확성**, **일관성**, **유효성**이 유지되는것
+
     + 입력 데이터에 문제가 없는지에 대한 검사와 
     + 데이터 수정/삭제 가능 여부 검사 등을 위해 사용
     + 컬럼이 여러개일때 제약조건이 여러개일 수 있다.
-    
+    + 제약조건은 테이블을 처음 만들 때 지정해도 되고 나중에 테이블을 만들고 지정해도 된다.
+
     ####
 
     |제약조건| 설명|
@@ -94,8 +97,130 @@
         + 테이블에서 한 행의 정보를 구분하기 위한 **고유 식별자 역할** NOT NULL의 의미와 UNIQUE의 의미를 둘 다 가지고 있으며 **한 테이블 당 하나만 설정 가능** 컬럼 레벨과 테이블 레벨 둘 다 지정 가능
         + * 여러컬럼을 묶어서 PRIMARY KEY로 만들수도 있다.
 
+        ```sql
+        -- PRIMARY KEY : NOT NULL + UNIQUE
+        -- 한 행을 구분 할 수 있는 고유 식별자
+        -- 한 테이블 당 하나만 설정 가능, 컬럼레벨/테이블 레벨 둘 다 설정 가능
+        -- 한 개 컬럼에 설정 할 수 있고 여러 개 컬럼을 묶어서 설정 할 수 있음
+
+        CREATE TABLE USER_PRIMARYKEY(
+            USER_NO NUMBER CONSTRAINT PK_USER_NO PRIMARY KEY,
+            USER_ID VARCHAR2(20) UNIQUE,
+            USER_PWD VARCHAR2(20) NOT NULL,
+            USER_NAME VARCHAR2(30),
+            GENDER VARCHAR2(10),
+            PHONE VARCHAR2(30),
+            EMAIL VARCHAR2(50)
+        );
+
+        INSERT INTO USER_PRIMARYKEY
+        VALUES(1,'user01', 'pass01','홍길동' ,'남', '010-1111-2222','hong123@kh.or.kr');
+
+        INSERT INTO USER_PRIMARYKEY
+        VALUES(2,'user02', 'pass02','이순신' ,'남', '010-2222-3333','leee123@kh.or.kr');
+
+        INSERT INTO USER_PRIMARYKEY
+        VALUES(2,'user02', 'pass02','이순신' ,'남', '010-2222-3333','leee123@kh.or.kr');
+        --unique constraint (KH.PK_USER_NO) violated
+
+        INSERT INTO USER_PRIMARYKEY
+        VALUES(null,'user03', 'pass03','유관순' ,'여', '010-33330-4444','you23@kh.or.kr');
+        --cannot insert NULL into ("KH"."USER_PRIMARYKEY"."USER_NO")
+
+
+        CREATE TABLE USER_PRIMARYKEY2( 
+            USER_NO NUMBER,
+            USER_ID VARCHAR2(20) UNIQUE,
+            USER_PWD VARCHAR2(20) NOT NULL,
+            USER_NAME VARCHAR2(30),
+            GENDER VARCHAR2(10),
+            PHONE VARCHAR2(30),
+            EMAIL VARCHAR2(50),
+            
+            CONSTRAINT PK_USER_NO_ID PRIMARY KEY(USER_NO,USER_ID)
+        );
+
+        INSERT INTO USER_PRIMARYKEY2
+        VALUES(1,'user01', 'pass01','홍길동' ,'남', '010-1111-2222','hong123@kh.or.kr');
+
+        INSERT INTO USER_PRIMARYKEY2
+        VALUES(2,'user02', 'pass02','이순신' ,'남', '010-2222-3333','leee123@kh.or.kr');
+
+        INSERT INTO USER_PRIMARYKEY2
+        VALUES(null,'user03', 'pass03','유관순' ,'여', '010-33330-4444','you23@kh.or.kr');
+        -- ORA-01400: cannot insert NULL into ("KH"."USER_PRIMARYKEY2"."USER_NO")
+
+        ```
     + **FOREIGN KEY**
         + 참조 무결성을 위한 제약조건으로 **참조된 다른 테이블이 제공한 값만 사용하도록 제한**을 거는 것 참조되는 컬럼과 참조된 컬럼을 통해 테이블 간에 관계가 형성되는데 참조되는 값은 제공되는 값 외에 NULL을 사용 가능하며 참조할 테이블의 참조할 컬럼 명을 생략할 경우 PRIMARY KEY로 설정된 컬럼이 자동으로 참조할 컬럼이 됨
+
+        + EX1)
+
+        ```SQL
+        -- FOREIGN KEY : 참조된 다른 테이블에 제공하는 값만 사용할 수 있음
+        -- 제공 되는 값 외에는 NULL 사용 가능
+
+        CREATE TABLE USER_GRADE(
+            GRADE_CODE NUMBER PRIMARY KEY,
+            GRADE_NAME VARCHAR2(30) NOT NULL
+        );
+
+        INSERT INTO USER_GRADE VALUES(10,'일반회원');
+        INSERT INTO USER_GRADE VALUES(20, '우수회원');
+        INSERT INTO USER_GRADE VALUES(30, '특별회원');
+
+        SELECT * FROM USER_GRADE;
+
+        CREATE TABLE USER_FOREIGNKEY( 
+            USER_NO NUMBER PRIMARY KEY,
+            USER_ID VARCHAR2(20) UNIQUE,
+            USER_PWD VARCHAR2(20) NOT NULL,
+            USER_NAME VARCHAR2(30),
+            GENDER VARCHAR2(10),
+            PHONE VARCHAR2(30),
+            EMAIL VARCHAR2(50),
+            GRADE_CODE NUMBER,
+            CONSTRAINT FK_GRADE_CODE FOREIGN KEY(GRADE_CODE) REFERENCES USER_GRADE(GRADE_CODE)
+        );
+
+        INSERT INTO USER_FOREIGNKEY
+        VALUES(1, 'user01', 'pass01', '홍길동', '남', '010-1111-2222','hong123@kh.or.kr',10);
+
+        INSERT INTO USER_FOREIGNKEY
+        VALUES(2, 'user02', 'pass02', '이순신', '남', '010-2222-3333','lee123@kh.or.kr',10);
+
+        INSERT INTO USER_FOREIGNKEY
+        VALUES(3, 'user03', 'pass03', '유관순', '남', '010-3333-4444','yoo123@kh.or.kr',30);
+
+        INSERT INTO USER_FOREIGNKEY
+        VALUES(4, 'user04', 'pass04', '안중근', '남', '010-4444-5555','ahn123@kh.or.kr',NULL);
+
+        INSERT INTO USER_FOREIGNKEY
+        VALUES(5, 'user05', 'pass05', '윤봉길', '남', '010-5555-6666','yoon123@kh.or.kr', 50);
+        -- 오류 보고 - ORA-02291: integrity constraint (KH.FK_GRADE_CODE) violated - parent key not found
+        -- 오류 내용 : 참조하는 테이블에서 부모키를 찾을 수 없다고 한다.
+        -- 행 삽입 불가 ==> 제약조건은 모두 허용했지만 
+        -- 참조하는 테이블에 50이라는 값이 존재 하지 않으므로 삽입 불가, 없는 값은 NULL만 가능하다!!
+
+        -- 삭제 옵션 : 부모 테이블의 데이터 삭제 시 자식 테이블의 데이터를 어떤 식으로 처리할 지에 대한 내용 설정
+        DELETE FROM USER_GRADE
+        WHERE GRADE_CODE = 10;
+        -- integrity constraint (KH.FK_GRADE_CODE) violated - child record found
+        -- ON DELETE RESTRAICTED(삭제 제한)로 기본 지정되어 있음
+        -- FOREIGN KEY로 지정한 컬럼에서 사용되고 있는 값일 경우 제공하는 컬럼의 값은 삭제하지 못 함
+
+        SELECT * FROM USER_FOREIGNKEY
+        LEFT JOIN USER_GRADE USING(GRADE_CODE);
+
+        RESULT :
+
+        30  	3	user03	pass03	유관순	남	010-3333-4444	yoo123@kh.or.kr	 특별회원
+        null    4	user04	pass04	안중근	남	010-4444-5555	ahn123@kh.or.kr	   null
+        10  	1	user01	pass01	홍길동	남	010-1111-2222	hong123@kh.or.kr 일반회원
+        10  	2	user02	pass02	이순신	남	010-2222-3333	lee123@kh.or.kr	 일반회원
+        ```
+
+        
     + **CHECK**
         + 해당 컬럼에 입력 되거나 수정되는 값을 체크하여 설정된 값 이외의 값이면 에러 발생 비교 연산자를 이용하여 조건을 설정하며 비교 값을 리터럴만 사용 가능하고 변하는 값이나 함수 사용은 불가능
 
@@ -125,5 +250,8 @@
 
     DESC MEMBER; 
     -- DESC문 : 테이블 구조 표시
+
+    SELECT * FROM USER_VIEWS; 
+    -- View 구조
     ```
 

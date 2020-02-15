@@ -60,7 +60,46 @@
 
 
             ```
-    +
+    + 생성된 뷰를 이용해 DML문 사용 가능
+        + ex)
+            ```sql
+            CREATE OR REPLACE VIEW V_JOB
+            AS SELECT JOB_CODE, JOB_NAME
+                FROM JOB;
+            ```
+
+
+    + 뷰에 INSERT사용
+        + ex)
+            ```sql
+            INSERT INTO V_JOB 
+            VALUES ('J8','인턴');
+
+            SELECT * FROM V_JOB;
+            SELECT * FROM JOB;
+            -- 뷰에서 요청한 DML구문은 베이스 테이블도 변경함
+            ```
+
+    + 뷰에 UPDATE 사용
+        + ex)
+            ```sql
+            UPDATE V_JOB
+            SET JOB_NAME = '알바'
+            WHERE JOB_NAME = '인턴';
+            ```
+
+    + 뷰에 DELATE 사용
+        + ex)
+            ```sql
+            DELETE FROM V_JOB
+            WHERE JOB_CODE = 'J8';
+            ```
+
+-- VIEW 구조
+SELECT * FROM USER_VIEWS;
+-- 실제 테이블에서 불러오는 것이 아니라
+-- VIEW에 저장된 TEXT 를 불러와서 그 TEXT에 기록된 문장을 재실행하는 방식이다.
+-- 뷰 정의 시 사용한 쿼리 문장이 TEXT컬럼에 저장
 
     +
 

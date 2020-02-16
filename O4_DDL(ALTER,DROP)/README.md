@@ -1,4 +1,4 @@
-# DDR(ALTER,DROP)
+# DDL(ALTER,DROP)
 
 ## **ALTER**
 

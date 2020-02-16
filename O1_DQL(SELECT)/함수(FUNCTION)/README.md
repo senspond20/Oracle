@@ -365,9 +365,6 @@ SELECT TO_CHAR(1234, '9.9EEEE') FROM DUAL;
 SELECT TO_CHAR(1234, '999') FROM DUAL; 
 -- RESULT : #### ==> EX. 엑셀에서 칸을 줄이면 #으로 치환되는 것과 동일
  ```
-
- + TO_DATE(CHARACTER|NUMBER [, FORMAT]) : DATE (문자/숫자형 데이터 -> 날짜형 데이터)
-
  ```sql
 SELECT TO_CHAR(SYSDATE, 'PM HH24:MI:SS') FROM DUAL;
 -- RESULT : 오전 09:22:45 ==> 오전/오후 상관없이 알아서 나온다.
@@ -414,10 +411,10 @@ SELECT TO_CHAR(SYSDATE, 'Q'),
 FROM DUAL;
 --RESULT : 1	목요일	목
   ```
- + TO_NUMBER (CHARACTER, [FORMAT]) : NUMBER (문자형 데이터 --> 숫자형 데이터)
-
+ + TO_DATE(CHARACTER|NUMBER [, FORMAT]) : DATE (문자/숫자형 데이터 -> 날짜형 데이터)
+ 
  ```SQL
-ELECT TO_DATE('20100101', 'YYYYMMDD') FROM DUAL;
+SELECT TO_DATE('20100101', 'YYYYMMDD') FROM DUAL;
 -- RESULT : 10/01/01
 SELECT TO_DATE(20100101, 'YYYYMMDD') FROM DUAL;
 -- RESULT : 10/01/01 
@@ -441,6 +438,10 @@ FROM DUAL;
 -- YY : 21세기 (앞 두자리 연도에 현재의 세기를 무조건 맞춰서 넣어준다.)
 -- RR : 두자리 년도가 50년 이상이면 이전세기, 50년 미만이면 현재세기
  ```
+
+ + TO_NUMBER (CHARACTER, [FORMAT]) : NUMBER (문자형 데이터 --> 숫자형 데이터)
+
+
 
 ## 5. NULL 처리 함수
 

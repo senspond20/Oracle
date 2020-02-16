@@ -321,90 +321,90 @@
         +  **WITH READ OLNY** 옵션 : 뷰에 대해 조회만 가능( 삽입, 수정, 삭제 등은 불가능하게 함)
 
 
-```SQL
---1) OR REPLACE 옵션 : 기본에 동일한 뷰 이름이 존재하는 경우 덮어쓰고, 존재하지 않으면 새로 생성
--- 주민번호와 사원 명 정보를 가지고 있는 V_EMP1 뷰 생성
+        ```SQL
+        --1) OR REPLACE 옵션 : 기본에 동일한 뷰 이름이 존재하는 경우 덮어쓰고, 존재하지 않으면 새로 생성
+        -- 주민번호와 사원 명 정보를 가지고 있는 V_EMP1 뷰 생성
 
-CREATE OR REPLACE VIEW V_EMP1
-AS SELECT EMP_NO, EMP_NAME
-    FROM EMPLOYEE;
+        CREATE OR REPLACE VIEW V_EMP1
+        AS SELECT EMP_NO, EMP_NAME
+            FROM EMPLOYEE;
 
-SELECT * FROM V_EMP1;
+        SELECT * FROM V_EMP1;
 
-CREATE OR REPLACE VIEW V_EMP1
-AS SELECT EMP_NO, EMP_NAME, SALARY
-    FROM EMPLOYEE;
+        CREATE OR REPLACE VIEW V_EMP1
+        AS SELECT EMP_NO, EMP_NAME, SALARY
+            FROM EMPLOYEE;
 
-SELECT * FROM V_EMP1;
+        SELECT * FROM V_EMP1;
 
--- (OR REPLACE 키워드를 사용하지 않고 쓸경우)
-CREATE VIEW V_EMP1
-AS SELECT EMP_NO, EMP_NAME
-    FROM EMPLOYEE;
--- ORA-00955: name is already used by an existing object
--- 이름이 이미 사용중이다면서 덮어쓰기가 불가능하다.
+        -- (OR REPLACE 키워드를 사용하지 않고 쓸경우)
+        CREATE VIEW V_EMP1
+        AS SELECT EMP_NO, EMP_NAME
+            FROM EMPLOYEE;
+        -- ORA-00955: name is already used by an existing object
+        -- 이름이 이미 사용중이다면서 덮어쓰기가 불가능하다.
 
---2) FORCE / NOFORCE 옵션
+        --2) FORCE / NOFORCE 옵션
 
--- FORCE : 서브쿼리에 사용된 테이블이 존재하지 않아도 뷰 생성 
--- NOFORCE : 지정하지 않을 시 기본적으로 지정되어있다.
+        -- FORCE : 서브쿼리에 사용된 테이블이 존재하지 않아도 뷰 생성 
+        -- NOFORCE : 지정하지 않을 시 기본적으로 지정되어있다.
 
-CREATE OR REPLACE /*NOFORCE*/ VIEW V_EMP2
-AS SELECT TCODE, TNAME, TCONTENT
-    FROM TT;
---ORA-00942: table or view does not exist
--- 존재하지 않는 테이블이나 뷰이다.
+        CREATE OR REPLACE /*NOFORCE*/ VIEW V_EMP2
+        AS SELECT TCODE, TNAME, TCONTENT
+            FROM TT;
+        --ORA-00942: table or view does not exist
+        -- 존재하지 않는 테이블이나 뷰이다.
 
-CREATE OR REPLACE FORCE VIEW V_EMP2
-AS SELECT TCODE, TNAME, TCONTENT
-    FROM TT;
--- ORA-00942: table or view does not exist
--- 경고: 컴파일 오류와 함께 뷰가 생성되었습니다.
--- 빨간색으로
+        CREATE OR REPLACE FORCE VIEW V_EMP2
+        AS SELECT TCODE, TNAME, TCONTENT
+            FROM TT;
+        -- ORA-00942: table or view does not exist
+        -- 경고: 컴파일 오류와 함께 뷰가 생성되었습니다.
+        -- 빨간색으로
 
-SELECT * FROM V_EMP2;
-SELECT * FROM USER_VIEWS;
+        SELECT * FROM V_EMP2;
+        SELECT * FROM USER_VIEWS;
 
--- 3) WITH CHECK OPTION : 옵션을 설정한 컬럼의 값을 수정 불가능하게 함
+        -- 3) WITH CHECK OPTION : 옵션을 설정한 컬럼의 값을 수정 불가능하게 함
 
-CREATE OR REPLACE VIEW V_EMP3
-AS SELECT * 
-    FROM EMPLOYEE;
-SELECT * FROM EMPLOYEE;
+        CREATE OR REPLACE VIEW V_EMP3
+        AS SELECT * 
+            FROM EMPLOYEE;
+        SELECT * FROM EMPLOYEE;
 
-CREATE OR REPLACE VIEW V_EMP3
-AS SELECT * 
-    FROM EMPLOYEE
-    WHERE DEPT_CODE = 'D9' WITH CHECK OPTION;
-    
-SELECT * FROM V_EMP3;
+        CREATE OR REPLACE VIEW V_EMP3
+        AS SELECT * 
+            FROM EMPLOYEE
+            WHERE DEPT_CODE = 'D9' WITH CHECK OPTION;
+            
+        SELECT * FROM V_EMP3;
 
-UPDATE V_EMP3
-SET DEPT_CODE = 'D1'
-WHERE EMP_ID = 201;
--- ORA-01402: view WITH CHECK OPTION where-clause violation
--- WITH CHECK OPTION (컬럼 값 수정 불가능)이 걸려있어서 수정이 안된다.
--- 만약 조건문에 찾을 수 없는것이 들어가있으면 0행이 삽입되었습니다. 라
+        UPDATE V_EMP3
+        SET DEPT_CODE = 'D1'
+        WHERE EMP_ID = 201;
+        -- ORA-01402: view WITH CHECK OPTION where-clause violation
+        -- WITH CHECK OPTION (컬럼 값 수정 불가능)이 걸려있어서 수정이 안된다.
+        -- 만약 조건문에 찾을 수 없는것이 들어가있으면 0행이 삽입되었습니다. 라
 
-COMMIT;
-UPDATE V_EMP3
-SET EMP_NAME = '선동이'
-WHERE EMP_ID = 201;
+        COMMIT;
+        UPDATE V_EMP3
+        SET EMP_NAME = '선동이'
+        WHERE EMP_ID = 201;
 
-SELECT * FROM V_EMP3;
+        SELECT * FROM V_EMP3;
 
-ROLLBACK;
--- 4) WITH READ ONLY 옵션 : 뷰에 대해 조회만 가능
+        ROLLBACK;
+        -- 4) WITH READ ONLY 옵션 : 뷰에 대해 조회만 가능
 
-CREATE OR REPLACE VIEW V_DEPT
-AS SELECT * FROM DEPARTMENT
-WITH READ ONLY;
+        CREATE OR REPLACE VIEW V_DEPT
+        AS SELECT * FROM DEPARTMENT
+        WITH READ ONLY;
 
-SELECT * FROM V_DEPT;
+        SELECT * FROM V_DEPT;
 
-DELETE FROM V_DEPT;
---ORA-42399: cannot perform a DML operation on a read-only view
+        DELETE FROM V_DEPT;
+        --ORA-42399: cannot perform a DML operation on a read-only view
 
-COMMIT;
+        COMMIT;
 
-```
+        ```

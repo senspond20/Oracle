@@ -87,10 +87,12 @@
 
     + ### **NOT NULL**
         + 해당 컬럼에 반드시 값이 기록되어야 하는 경우 사용
-        + 특정 컬럼에 값을 저장/수정할 때는 NULL값을 허용하지 않도록 컬럼 레벨에서 제한
+        + 특정 컬럼에 값을 저장/수정할 때는 NULL값을 허용하지 않음.  
+        + **컬럼 레벨에서만 제한 가능**
         + * NOT NULL 제약조건이 설정된 컬럼에 NULL값이 입력되면, 행 자체를 삽입하지 않음
     + ### **UNIQUE** 
-        + 컬럼 입력 값에 대해 **중복을 제한**하는 제약조건으로 컬럼 레벨과 테이블 레벨에 설정 가능
+        + 컬럼 입력 값에 대해 **중복을 제한**하는 제약조건
+        + **컬럼 레벨과 테이블 레벨에 설정 가능**
         + * 왠만하면 테이블 레벨에 설정하는것이 좋다.
 
     + ### **PRIMARY KEY**
@@ -223,6 +225,34 @@
         
     + **CHECK**
         + 해당 컬럼에 입력 되거나 수정되는 값을 체크하여 설정된 값 이외의 값이면 에러 발생 비교 연산자를 이용하여 조건을 설정하며 비교 값을 리터럴만 사용 가능하고 변하는 값이나 함수 사용은 불가능
+        
+        ```SQL
+        CREATE TABLE USER_CHECK2(
+            TEST_NUMBER NUMBER,
+            CONSTRAINT CK_TEST_NUMBER CHECK(TEST_NUMBER > 0)
+        );
+
+        INSERT INTO USER_CHECK2 VALUES(10);
+        INSERT INTO USER_CHECK2 VALUES(-1);
+        -- check constraint (KH.CK_TEST_NUMBER) violated
+        -- 범위가 0보다 커야 하기 때문에 음수를 넣을 수 없다는 에러
+        ```
+
++ ### **서브쿼리를 이용한 테이블 생성**
+
+    +  **CREATE TABLE** 테이블 명(별칭,,,) **AS** (서브쿼리);
+        ```SQL
+        --EX1)
+        CREATE TABLE EMPLOYEE_COPY
+        AS SELECT * FROM EMPLOYEE;
+
+        --EX2)
+        CREATE TABLE EMPLOYEE_COPY2(사번,사원명,급여,부서명,직급명)
+        AS SELECT EMP_ID, EMP_NAME, SALARY, DEPT_TITLE, JOB_NAME
+            FROM EMPLOYEE
+                LEFT JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+                LEFT JOIN JOB USING(JOB_CODE);
+        ```
 
 
 ### **Data Dictionary 명령어**

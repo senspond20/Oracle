@@ -38,17 +38,29 @@
 
 + ## [03_DML(INSERT,UPDATE,DELETE)](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#dmlinsert-update-delete)
   + [INSERT](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#insert)
+    + INSERT INTO 테이블명(칼럼명,,,) VALUES (값,,,)
+    + 서브쿼리 이용한 INSERT
     + [INSERT ALL](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#insert-all)
   + [UPDATE](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#update)
-  + DELETE
+    + UPDATE 테이블명 SET 수정내용 [WHERE] 조건문
+    + 서브쿼리 이용한 UPDATE
+  + [DELETE](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#delete)
+  + [TRUNCATE](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#truncate)
 + ## [04_DDL(ALTER,DROP)](https://github.com/senspond20/Oracle/tree/master/O4_DDL(ALTER%2CDROP)#ddlalterdrop)
   
   + [컬럼 추가,삭제,변경](https://github.com/senspond20/Oracle/tree/master/O4_DDL(ALTER%2CDROP)#컬럼-추가-삭제-수정)
   + [제약조건 추가,삭제,변경](https://github.com/senspond20/Oracle/tree/master/O4_DDL(ALTER%2CDROP)#제약조건-추가변경삭제)
   + [이름 변경(테이블,컬럼,제약조건)](https://github.com/senspond20/Oracle/tree/master/O4_DDL(ALTER%2CDROP)#이름-변경)
+  + ※ CASCADE 
 
 + ## 05_OBJECT(VIEW,SEQUENCE,SYNONYM)
-  + VIEW
+  + **VIEW**
+    + VIEW 기본문법/별칭 부여
+    + VIEW 에 DML 명령어 사용
+    + VIEW 에 DML 명령어로 조작이 불가능한 경우
+    + VIEW 구조
+    + VIEW 옵션
+
   + SEQUENCE
   + SYNONYM
 

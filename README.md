@@ -37,14 +37,15 @@
   + 데이터사전 명령어 정리
 
 + ## [03_DML(INSERT,UPDATE,DELETE)](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#dmlinsert-update-delete)
-  + INSERT
-  + UPDATE
+  + [INSERT](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#insert)
+    + [INSERT ALL](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#insert-all)
+  + [UPDATE](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#update)
   + DELETE
 + ## [04_DDL(ALTER,DROP)](https://github.com/senspond20/Oracle/tree/master/O4_DDL(ALTER%2CDROP)#ddlalterdrop)
   
-  + 컬럼 추가,삭제,변경
-  + 제약조건 추가,삭제,변경
-  + 테이블,컬럼,제약조건 이름 변경
+  + [컬럼 추가,삭제,변경](https://github.com/senspond20/Oracle/tree/master/O4_DDL(ALTER%2CDROP)#컬럼-추가-삭제-수정)
+  + [제약조건 추가,삭제,변경](https://github.com/senspond20/Oracle/tree/master/O4_DDL(ALTER%2CDROP)#제약조건-추가변경삭제)
+  + [이름 변경(테이블,컬럼,제약조건)](https://github.com/senspond20/Oracle/tree/master/O4_DDL(ALTER%2CDROP)#이름-변경)
 
 + ## 05_OBJECT(VIEW,SEQUENCE,SYNONYM)
   + VIEW

@@ -33,7 +33,8 @@
                 LETF JOIN DEPARTMENT ON(DEPT_ID = DEPT_CODE)
         );
         ```
-+   + **INSERT ALL**
++  ### **INSERT ALL**
+    +
         + INSERT시 서브쿼리가 사용하는 테이블이 같은 경우, 두 개 이상의 테이블에 INSERT ALL을 이용하여 한번에 삽입 가능
         
         + **EX) 각 서브쿼리의 조건이 같은 경우**
@@ -105,9 +106,6 @@
 +    + **UPDATE** 테이블명 **SET** 수정내용 [**WHERE**] 조건문
 
         ```sql
-        UPDATE TABLE DEPT_COPY
-        AS SELECT * FROM DEPARTMENTL;
-
         UPDATE DEPT_COPY
         SET DEPT_TITLE = '전략기획팀'
         WHERE DEPT_ID = 'D9'

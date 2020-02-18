@@ -107,8 +107,10 @@
         + 5.DISTINCT를 포함한 경우 
         + 6.JOIN을 이용해 여러 테이블을 연결한 경우
 
-        ```SQL
-        -- 1) 뷰 정의에 포함되지 않은 컬럼을 조작하는 경우 
+        
+    + **1> 뷰 정의에 포함되지 않은 컬럼을 조작하는 경우**
+
+        ```sql
         CREATE OR REPLACE VIEW V_JOB2
         AS SELECT JOB_CODE
             FROM JOB;
@@ -145,9 +147,12 @@
         DELETE FROM V_JOB2
         WHERE JOB_NAME = '사원';
         --"JOB_NAME": invalid identifier
+        ```
 
-        -- 2) 뷰에 포함되지 않은 컬럼 중에 베이스가 되는 컬럼이 NOT NULL 제약조건이 지정된 경우 
-        -- : INSERT에서만 오류 발생
+    + **2> 뷰에 포함되지 않은 컬럼 중에 베이스가 되는 컬럼이 NOT NULL 제약조건이 지정된 경우**  
+        : INSERT에서만 오류 발생
+
+        ```sql
         -- JOB_NAME만 가진 뷰 V_JOB3 뷰 생성, 
         CREATE OR REPLACE VIEW V_JOB3
         AS SELECT JOB_NAME
@@ -175,8 +180,10 @@
 
         SELECT * FROM V_JOB3;
         SELECT * FROM JOB;
+        ```
 
-        -- 3) 산술 표현식으로 정의된 경우 
+    + **3> 산술 표현식으로 정의된 경우** 
+        ```sql
         -- 사번, 사원 명, 급여, 보너스가 포함된 연봉으로 이루어진 EMP_SAL 뷰 생성
 
         CREATE OR REPLACE VIEW EMP_SAL
@@ -206,8 +213,11 @@
             SELECT * FROM EMPLOYEE;
 
         ROLLBACK;
+        ```
 
-        -- 4) 그룹함수나 GROUP BY절을 포함한 경우 
+    + **4> 그룹함수나 GROUP BY절을 포함한 경우**  
+
+        ```sql
         -- 부서 코드, 부서 코드 별 급여 합계, 부서 코드 별 급여 평균을 가지고 있는 V_GROUPDEPT 뷰 생성
         --                      (합계)                    (평균)
 
@@ -236,8 +246,10 @@
         WHERE DEPT_CODE = 'D1';
         --  "data manipulation operation not legal on this view"
         -- 산술 표현식으로 정의된 경우와 다르게 삭제할때도 불가능하다.
-
-        -- 5) DISTINCT를 포함한 경우 
+        ```
+    
+    + **5> DISTINCT를 포함한 경우**
+        ```sql 
         CREATE OR REPLACE VIEW V_DT_EMP
         AS SELECT DISTINCT JOB_CODE
             FROM EMPLOYEE;
@@ -257,8 +269,10 @@
         DELETE FROM V_DT_EMP
         WHERE JOB_CODE = 'J1';
         -- ORA-01732: data manipulation operation not legal on this view
+        ```
 
-        -- 6) JOIN을 이용해 여러 테이블을 연결한 경우
+    + **6> JOIN을 이용해 여러 테이블을 연결한 경우**
+        ```sql
         -- 사번,사원 명, 부서 명 정보를 가지고 있는 V_JOINEMP 뷰 생성
 
         CREATE OR REPLACE VIEW V_JOINEMP
@@ -394,6 +408,7 @@
         SELECT * FROM V_EMP3;
 
         ROLLBACK;
+        
         -- 4) WITH READ ONLY 옵션 : 뷰에 대해 조회만 가능
 
         CREATE OR REPLACE VIEW V_DEPT

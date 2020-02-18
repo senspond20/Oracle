@@ -1,4 +1,6 @@
+## SEQUNCE
 
++ 순차적으로 정수 값을 자동으로 생성하는 객체로 자동 번호 발생기 역할을 함
 
 ```sql
 
@@ -7,16 +9,13 @@
 -- 인위적 주 식별자에 주로 시퀀스가 사용
 -- 게시판에 글을 쓸때 게시판번호 / 자동번호 발생기a
 
--- SEQUNCE
--- 순차적으로 정수 값을 자동으로 생성하는 객체로 자동 번호 발생기 역할을 함
-
 -- ※ 테이블 명을 지정할때 TIP을 붙인다. EX) 뷰 V_ 시원스 SEQ_
 
 --CREATE SEQUENCE 시퀀스명 
 --①[START WITH 숫자] ?처음발생시킬시작값,기본값1 
 --②[INCREMENT BY 숫자] ?다음값에대한증가치, 기본값1 
 --③[MAXVALUE 숫자| NOMAXVALUE] ?발생시킬최대값, 10의27승-1까지가능 
---④[MINVALUE 숫자| NOMINVALUE] ?발생시킬최소값, -10의 26승 
+--④[MINVALUSE 숫자| NOMINVALUE] ?발생시킬최소값, -10의 26승 
 --⑤[CYCLE | NOCYCLE] ?시퀀스가최대값까지증가완료시 CYCLE은 START WITH 설정값으로돌아감 NOCYCLE은에러발생 
 --⑥[CACHE | NOCACHE] ? CACHE는메모리상에서시퀀스값관리 기본값20
 

@@ -121,7 +121,104 @@
     /
     ```
 
+
+ + ### **테이블 타입**
+
+    + 테이블 : 키와 값의 쌍으로 이루어진 컬렉션
+    + **하나의 테이블의 한 개의 컬럼 데이터 저장**
+
+    + [표현식]  
+
+        ```sql
+        DECLARE
+            TYPE 테이블명 IS TABLE OF 데이터타입  
+            INDEX BY BYNARY_INTEGER;
+        ```
+    + 예제)
+        ```sql
+        DECLARE 
+            -- 테이블 타입 선언
+            TYPE EMP_ID_TABLE_TYPE IS TABLE OF EMPLOYEE.EMP_ID%TYPE
+            INDEX BY BINARY_INTEGER;
+            -- EMPLOYEE.EMP_ID의 타입의 데이터를 저장 할 수 있는 테이블 타입 변수 EMP_ID_TABLE_TYPE 선언
+            
+            TYPE EMP_NAME_TABLE_TYPE IS TABLE OF EMPLOYEE.EMP_NAME%TYPE
+            INDEX BY BINARY_INTEGER;
+            -- EMPLOYEE.EMP_NAME 타입의 데이터를 저장 할 수 있는 테이블 타입 EMP_NAME_TABLE_TYPE 선언
+            
+            -- 변수 선언
+            -- 테이블 타입 EMP_ID_TABLE_TYPE 변수 EMP_ID_TABLE 선언
+            EMP_ID_TABLE EMP_ID_TABLE_TYPE;
+            
+            -- 테이블 타입 EMP_NAME_TABLE_TYPE 변수 EMP_NAME_TABLE 선언
+            EMP_NAME_TABLE EMP_NAME_TABLE_TYPE;
+            
+            I BINARY_INTEGER := 0;
+            
+        BEGIN
+            FOR K IN (SELECT EMP_ID, EMP_NAME FROM EMPLOYEE)
+            -- K에 SELECT 해온 행 하나하나가 들어감
+            LOOP
+                I := I + 1;
+                EMP_ID_TABLE(I) := K.EMP_ID;
+                EMP_NAME_TABLE(I) := K.EMP_NAME;
+            END LOOP;
+            
+            FOR J IN 1..I
+            LOOP
+                DBMS_OUTPUT.PUT_LINE('EMP_ID : ' || EMP_ID_TABLE(J) || ', EMP_NAME : ' || EMP_NAME_TABLE(J));
+            END LOOP;
+        END;
+        /
+        ```
+
++ ### **레코드 타입**
+
+    + **서로 다른 유형의 데이터를 한 줄로 나열한 형태**
+    + 테이블 타입의 경우 한 타입만 들어갈 수 있다면 레코드 타입의 경우 내가 정한 여러 타입이 들어갈 수 있음
+
+    + [표현식]
+
+        ```sql
+        DECLARE
+            TYPE 레코드명 IS RECORE(
+                필드명 필드타입 [ [NOT NULL] := DEFAULT 값],
+                필드명 필드타입 [ [NOT NULL] := DEFAULT 값],
+                ...
+            );
+        ```
+    + 예제)
+        ```sql
+        DECLARE
+        -- 레코드 타입 선언
+            TYPE EMP_RECORD_TYPE IS RECORD(
+                EMP_ID EMPLOYEE.EMP_ID%TYPE,
+                EMP_NAME EMPLOYEE.EMP_NAME%TYPE,
+                DEPT_TITLE DEPARTMENT.DEPT_TITLE%TYPE,
+                JOB_NAME JOB.JOB_NAME%TYPE
+            );
+        EMP_RECORD EMP_RECORD_TYPE;
+       
+        BEGIN
+        SELECT EMP_ID,EMP_NAME, DEPT_TITLE, JOB_NAME
+        INTO EMP_RECORD
+        FROM EMPLOYEE
+            LEFT JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
+            LEFT JOIN JOB USING(JOB_CODE)
+        WHERE EMP_NAME = '&이름';
+
+        DBMS_OUTPUT.PUT_LINE('사번 : ' || EMP_RECORD.EMP_ID);
+        DBMS_OUTPUT.PUT_LINE('이름 : ' || EMP_RECORD.EMP_NAME);
+        DBMS_OUTPUT.PUT_LINE('부서 : ' || EMP_RECORD.DEPT_TITLE);
+        DBMS_OUTPUT.PUT_LINE('직급 : ' || EMP_RECORD.JOB_NAME);
+        
+        END;
+        /
+        ```
+
 --------------------
+
+### **선택문(조건문) / 반복문 / 예외처리**
 
 + 선택문
     + IF ~ THEN ~ END IF (단일 IF문)
@@ -136,6 +233,116 @@
 
 
 + ### **선택문**
+
+    + **IF ~ THEN ~ END IF** (단일 IF문)
+
+        ```SQL
+        -- EMP_ID를 입력받아 해당 사원의 사번, 이름, 급여, 보너스율 출력
+        -- 단, 보너스를 입력받지 않은 사원은 보너스율 출력 전, 
+        -- '보너스를 지급받지 않는 사원입니다' 출력
+        DECLARE
+            EMP_ID EMPLOYEE.EMP_ID%TYPE;
+            EMP_NAME EMPLOYEE.EMP_NAME%TYPE;
+            SALARY EMPLOYEE.SALARY%TYPE;
+            BONUS EMPLOYEE.SALARY%TYPE;
+
+        BEGIN
+            SELECT EMP_ID, EMP_NAME, SALARY, NVL(BONUS, 0)
+            INTO EMP_ID, EMP_NAME, SALARY, BONUS
+            FROM EMPLOYEE
+            WHERE EMP_ID = '&사번';
+            
+            DBMS_OUTPUT.PUT_LINE('EMP_ID : ' || EMP_ID);
+            DBMS_OUTPUT.PUT_LINE('EMP_NAME : ' || EMP_NAME);
+            DBMS_OUTPUT.PUT_LINE('SALARY : ' || SALARY);
+            
+            IF(BONUS = 0)
+            THEN DBMS_OUTPUT.PUT_LINE('보너스를 지급받지 않는 사원입니다.');
+            END IF; 
+            DBMS_OUTPUT.PUT_LINE('BONUS : ' || BONUS * 100 || '%');
+            
+        END;
+        /
+        ```
+
+    + **IF ~ THEN ~ ELSE ~ END IF** (IF ~ ELSE문)
+        ```SQL
+        -- 사원의 연봉을 구하는 PL/SQL 블럭 작성
+        -- 보너스가 있는 사원은 보너스도 포함하여 계산
+        -- 급여, 이름, 보너스가 포함된 연봉(원화 자리수 구분까지)
+        DECLARE
+            VEMP EMPLOYEE%ROWTYPE;
+            YSALARY NUMBER;
+        BEGIN
+            SELECT *
+            INTO VEMP
+            FROM EMPLOYEE
+            WHERE EMP_ID = '&사번';
+
+            IF(VEMP.BONUS IS NULL)
+                THEN YSALARY := VEMP.SALARY * 12;
+            ELSE
+                YSALARY := VEMP.SALARY * (1 + VEMP.SALARY) * 12;
+            END IF;
+            
+            DBMS_OUTPUT.PUT_LINE(VEMP.SALARY || ' ' || VEMP.EMP_NAME || ' ' || TO_CHAR(YSALARY,'FML999,999,999'));
+        END;
+        /
+        ```
+
+    + **IF ~ THEN ~ ELSIF ~ ELSE ~ END IF**(IF ~ ELSE IF ~ ELSE문)
+
+        ```SQL
+        -- 점수를 입력받아 SCORE 변수에 저장하고
+        -- 90점 이상은 'A', 80점 이상은 'B', 70점 이상은 'C'
+        -- 60점 이상은 'D', 60점 미만은 'F'로 조건처리하여
+        -- GRADE 변수에 저장
+        -- 출력양식 : 당신의 점수는 90점이고, 학점은 A학점 입니다.
+
+        DECLARE
+            SCORE INT; -- NUMBER(38) 과 같은 타입
+            GRADE VARCHAR2(2);
+        BEGIN
+            SCORE := '&점수';
+            
+            IF(SCORE >= 90 ) THEN GRADE := 'A';
+            ELSIF SCORE >= 80 THEN GRADE := 'B';
+            ELSIF SCORE >= 70 THEN GRADE := 'C';
+            ELSIF SCORE >= 60 THEN GRADE := 'D';
+            ELSE GRADE := 'F';
+            END IF;
+            
+            DBMS_OUTPUT.PUT_LINE('당신의 점수는 ' || SCORE || '점이고, 학점은 ' || GRADE || '학점입니다.');
+        END;
+        /
+        ```    
+
+    + **CASE ~ WHEN ~ THEN ~ END**(SWITCH ~ CASE문)
+
+        ```SQL
+        -- 사원 번호를 입력하여 해당 사원의 사번, 이름, 부서명 출력
+        DECLARE
+            EMP EMPLOYEE%ROWTYPE;
+            DNAME VARCHAR2(20);
+        BEGIN
+            SELECT *
+            INTO EMP
+            FROM EMPLOYEE
+            WHERE EMP_ID = '&사번';
+
+            DNAME := CASE EMP.DEPT_CODE 
+                    WHEN 'D1' THEN '인사관리부'
+                    WHEN 'D2' THEN '회계관리부'
+                    WHEN 'D3' THEN '마케팅부'
+                    WHEN 'D4' THEN '국내영업부'
+                    WHEN 'D5' THEN '해외영업1부'
+                END;
+
+            DBMS_OUTPUT.PUT_LINE('사번    이름      부서명');
+            DBMS_OUTPUT.PUT_LINE(EMP.EMP_ID||'    '||EMP.EMP_NAME||'    '||DNAME);
+        END;
+        /
+        ```
 
 + ### **반복문**
     + **BASIC LOOP**  
@@ -262,96 +469,3 @@
         ```
 ------------------
 
-
-### 테이블 타입
-
-+ 테이블 : 키와 값의 쌍으로 이루어진 컬렉션
-+ 하나의 테이블의 한 개의 컬럼 데이터 저장
-
-+ [표현식]  
-
-    ```sql
-    DECLARE
-        TYPE 테이블명 IS TABLE OF 데이터타입  
-        INDEX BY BYNARY_INTEGER;
-    ```
-    + 예제)
-        ```sql
-        DECLARE 
-            -- 테이블 타입 선언
-            TYPE EMP_ID_TABLE_TYPE IS TABLE OF EMPLOYEE.EMP_ID%TYPE
-            INDEX BY BINARY_INTEGER;
-            -- EMPLOYEE.EMP_ID의 타입의 데이터를 저장 할 수 있는 테이블 타입 변수 EMP_ID_TABLE_TYPE 선언
-            
-            TYPE EMP_NAME_TABLE_TYPE IS TABLE OF EMPLOYEE.EMP_NAME%TYPE
-            INDEX BY BINARY_INTEGER;
-            -- EMPLOYEE.EMP_NAME 타입의 데이터를 저장 할 수 있는 테이블 타입 EMP_NAME_TABLE_TYPE 선언
-            
-            -- 변수 선언
-            -- 테이블 타입 EMP_ID_TABLE_TYPE 변수 EMP_ID_TABLE 선언
-            EMP_ID_TABLE EMP_ID_TABLE_TYPE;
-            
-            -- 테이블 타입 EMP_NAME_TABLE_TYPE 변수 EMP_NAME_TABLE 선언
-            EMP_NAME_TABLE EMP_NAME_TABLE_TYPE;
-            
-            I BINARY_INTEGER := 0;
-            
-        BEGIN
-            FOR K IN (SELECT EMP_ID, EMP_NAME FROM EMPLOYEE)
-            -- K에 SELECT 해온 행 하나하나가 들어감
-            LOOP
-                I := I + 1;
-                EMP_ID_TABLE(I) := K.EMP_ID;
-                EMP_NAME_TABLE(I) := K.EMP_NAME;
-            END LOOP;
-            
-            FOR J IN 1..I
-            LOOP
-                DBMS_OUTPUT.PUT_LINE('EMP_ID : ' || EMP_ID_TABLE(J) || ', EMP_NAME : ' || EMP_NAME_TABLE(J));
-            END LOOP;
-        END;
-        /
-        ```
-
-### 레코드 타입
-
-+ 서로 다른 유형의 데이터를 한 줄로 나열한 형태
-+ 테이블 타입의 경우 한 타입만 들어갈 수 있다면 레코드 타입의 경우 내가 정한 여러 타입이 들어갈 수 있음
-
-+ [표현식]
-    ```sql
-    DECLARE
-        TYPE 레코드명 IS RECORE(
-            필드명 필드타입 [ [NOT NULL] := DEFAULT 값],
-            필드명 필드타입 [ [NOT NULL] := DEFAULT 값],
-            ...
-        );
-    ```
-    + 예제)
-        ```sql
-        DECLARE
-        -- 레코드 타입 선언
-            TYPE EMP_RECORD_TYPE IS RECORD(
-                EMP_ID EMPLOYEE.EMP_ID%TYPE,
-                EMP_NAME EMPLOYEE.EMP_NAME%TYPE,
-                DEPT_TITLE DEPARTMENT.DEPT_TITLE%TYPE,
-                JOB_NAME JOB.JOB_NAME%TYPE
-            );
-        EMP_RECORD EMP_RECORD_TYPE;
-       
-        BEGIN
-        SELECT EMP_ID,EMP_NAME, DEPT_TITLE, JOB_NAME
-        INTO EMP_RECORD
-        FROM EMPLOYEE
-            LEFT JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
-            LEFT JOIN JOB USING(JOB_CODE)
-        WHERE EMP_NAME = '&이름';
-
-        DBMS_OUTPUT.PUT_LINE('사번 : ' || EMP_RECORD.EMP_ID);
-        DBMS_OUTPUT.PUT_LINE('이름 : ' || EMP_RECORD.EMP_NAME);
-        DBMS_OUTPUT.PUT_LINE('부서 : ' || EMP_RECORD.DEPT_TITLE);
-        DBMS_OUTPUT.PUT_LINE('직급 : ' || EMP_RECORD.JOB_NAME);
-        
-        END;
-        /
-        ```

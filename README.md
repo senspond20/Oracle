@@ -54,17 +54,25 @@
   + ※ CASCADE 
 
 + ## 05_OBJECT(VIEW,SEQUENCE,SYNONYM)
-  + **VIEW**
+  + [**VIEW**](https://github.com/senspond20/Oracle/blob/master/O5_OBJECT(VIEW%2CSEQUENCE%2CSYNONYM)/view.md#view)
     + VIEW 기본문법/별칭 부여
     + VIEW 에 DML 명령어 사용
     + VIEW 에 DML 명령어로 조작이 불가능한 경우
     + VIEW 구조
     + VIEW 옵션
 
-  + SEQUENCE
+  + [SEQUENCE](https://github.com/senspond20/Oracle/blob/master/O5_OBJECT(VIEW%2CSEQUENCE%2CSYNONYM)/sequence.md#sequnce)
   + SYNONYM
 
 + ## [06_PL_SQL](https://github.com/senspond20/Oracle/tree/master/O6_PL_SQL#plsql-procedural-language-extension-to-sql)
+
+  + [변수선언 및 초기화](https://github.com/senspond20/Oracle/blob/master/O6_PL_SQL/README.md#타입-변수-선언)
+  + [조건문/반복문/예외처리](https://github.com/senspond20/Oracle/blob/master/O6_PL_SQL/README.md#선택문조건문--반복문--예외처리)
+  ---
+  + [PROCEDURE](https://github.com/senspond20/Oracle/blob/master/O6_PL_SQL/PROCEDURE.md#procedure)
+  + [FUNCTION](https://github.com/senspond20/Oracle/blob/master/O6_PL_SQL/PROCEDURE.md#function)
+  + [TRIGGER](https://github.com/senspond20/Oracle/blob/master/O6_PL_SQL/TRIGGER.md#trigger)
+
 + ## 07_DB모델링
 
 --------------------------------

@@ -27,13 +27,14 @@
 
 + ## [02_DDL(CREATE)](https://github.com/senspond20/Oracle/tree/master/O2_DDL(CREATE)#ddldata-definition-language)
   + CREATE TABLE
-  + 오라클 데이터형 / 제약조건(CONSTRAINTS)
+  + 오라클 데이터형
+  + [제약조건(CONSTRAINTS)](https://github.com/senspond20/Oracle/tree/master/O2_DDL(CREATE)#제약조건constraints)
   + 제약조건을 기술하여 테이블 생성
-    + NOT NULL
-    + PRIMARY KEY
-    + FOREIGN KEY
+    + [NOT NULL](https://github.com/senspond20/Oracle/tree/master/O2_DDL(CREATE)#not-null)
+    + [PRIMARY KEY](https://github.com/senspond20/Oracle/tree/master/O2_DDL(CREATE)#primary-key)
+    + [FOREIGN KEY](https://github.com/senspond20/Oracle/tree/master/O2_DDL(CREATE)#foreign-key)
     + CHECK
-  + 서브쿼리를 이용한 테이블 생성
+  + [서브쿼리를 이용한 테이블 생성](https://github.com/senspond20/Oracle/tree/master/O2_DDL(CREATE)#서브쿼리를-이용한-테이블-생성)
   + 데이터사전 명령어 정리
 
 + ## [03_DML(INSERT,UPDATE,DELETE)](https://github.com/senspond20/Oracle/tree/master/O3_DML(INSERT%2C%20UPDATE%2C%20DELETE)#dmlinsert-update-delete)

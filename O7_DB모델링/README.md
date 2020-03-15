@@ -116,6 +116,5 @@ GRANT GCLASSRROLL TO NOON;
 --        롤         계정
 
 
--- 2문제 : 한문제 PLSQL
 
 ```
